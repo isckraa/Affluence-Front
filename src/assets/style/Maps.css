@@ -1,0 +1,22 @@
+
+.mapboxgl-canvas {
+  width: 100vw !important;
+  height: 100vh !important;
+}
+
+.sidebarStyle {
+  display: inline-block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 2em;
+  background-color: #404040;
+  color: #ffffff;
+  z-index: 1 !important;
+  padding: 6px;
+  font-weight: bold;
+}
+
+.mapboxgl-control-container {
+  display: none;
+}

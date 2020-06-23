@@ -1,5 +1,6 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl';
+import '../assets/style/Maps.css';
 
 import marker_green from '../images/marker_green.png';
 import marker_orange from '../images/marker_orange.png';
@@ -17,7 +18,7 @@ class Maps extends React.Component {
             allowed: false,
             lng: 2.33,
             lat: 48.86,
-            zoom: 16
+            zoom: 17
         };
     }
 
