@@ -9,14 +9,15 @@
     padding: 10px;
     border-radius: 10px;
     background-color: #36305C;
+    font-family: 'Courgette', sans-serif;
 }
 
 .login-form .title {
     color: #FFFFFF;
     font-size: 38px;
-    font-family: 'Courgette', sans-serif;
     margin-top: 90px;
     margin-bottom: 70px;
+    font-weight: 500;
 }
 
 .login-form .inputs {
@@ -96,7 +97,7 @@
     width: 120px;
     background-color: #E84820;
     border-radius: 10px;
-    font-size: 13px;
+    font-size: 15px;
     text-align: center;
     padding: 10px 5px;
 }
