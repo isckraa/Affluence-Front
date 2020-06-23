@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
-import Maps from './components/Maps';
 import Login from './components/Login';
+import HomePage from './components/HomePage';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        {/* <Maps /> */}
-        <Login />
+        {/* <Login /> */}
+        <HomePage />
       </header>
     </div>
   );
