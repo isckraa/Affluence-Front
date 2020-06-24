@@ -1,8 +1,8 @@
 import React from 'react';
-import '../assets/style/Login.css';
+import '../assets/style/SignUp.css';
 import Backgound from '../images/login_background.jpg';
 
-class Login extends React.Component {
+class SignUp extends React.Component {
 
     constructor(props) {
         super(props);
@@ -10,10 +10,16 @@ class Login extends React.Component {
 
     render() {        
         return(
-            <div className="login-content" style={{background: `url(${Backgound}) center center / cover no-repeat`}}>
-                <form className="login-form" method="POST">
+            <div className="signup-content" style={{background: `url(${Backgound}) center center / cover no-repeat`}}>
+                <form className="signup-form" method="POST">
                     <h1 className="title">Affluence</h1>
                     <div className="inputs">
+                        <div className="mail-section input-section">
+                            <input type="email" name="mail" className="input input-email" autoComplete="off" required/>
+                            <label for="mail" class="label-name">
+                                <span class="content-name">Email</span>
+                            </label>
+                        </div>
                         <div className="username-section input-section">
                             <input type="text" name="username" className="input" autoComplete="off" required/>
                             <label for="username" class="label-name">
@@ -28,8 +34,7 @@ class Login extends React.Component {
                         </div>
                     </div>
                     <div className="login-form__submit-wrapper">
-                        <div className="login-form__button cta">Se Connecter</div>
-                        <div className="login-form__button cta">Créer un compte</div>
+                        <div className="login-form__button cta">S'inscrire</div>
                     </div>
                 </form>
             </div>
@@ -37,4 +42,4 @@ class Login extends React.Component {
     }
 }
 
-export default Login;
+export default SignUp;
