@@ -1,0 +1,25 @@
+.rowSearch {
+    display: flex;
+    flex-direction: row;
+    padding: 0.5em;
+    margin: 0 1em 1em 1em;
+    border-bottom: 1px solid #E84820;
+    align-items: center;
+}
+
+.img {
+    max-width: 5em;
+    margin-right: 1em;
+}
+
+.infos {
+    color: #fff;
+    font-family: 'Montserrat';
+    font-weight: 600;
+}
+
+.chevron {
+    color: #E1A869;
+    position: absolute;
+    right: 1em;
+}
