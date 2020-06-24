@@ -65,15 +65,14 @@
 }
 
 .rowMaskGel {
-    display: inline-grid;
-    grid-template-columns: 50% 50%;
-    grid-gap: 1em;
+    display: flex;
     margin: 1em;
 }
 
 .mask, .gel {
     text-align: center;
     font-size: 14px;
+    width: 9em;
 }
 
 .maskImg, .gelImg {
@@ -91,4 +90,33 @@
 
 .editBtn:hover, .backBtn:hover {
     cursor: pointer;
+}
+
+.editCapacity, .editPeople, .editMask, .editGel {
+    display: flex;
+    flex-direction: row;
+    text-align: right;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.numberStoreEdit, .peopleStoreEdit {
+    width: 3.5em;
+    margin: 0.3em;
+    text-align: center;
+    background-color: transparent;
+    border: 2px solid #E1A869;
+    border-radius: 10px;
+    font-size: 18px;
+    height: 2em;
+    color: #fff;
+    font-weight: 700;
+}
+
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: 0; 
 }

@@ -1,6 +1,7 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl';
 import '../assets/style/Maps.css';
+import axios from 'axios';
 
 import marker_green from '../images/marker_green.png';
 import marker_orange from '../images/marker_orange.png';
@@ -18,7 +19,7 @@ class Maps extends React.Component {
             allowed: false,
             lng: 2.33,
             lat: 48.86,
-            zoom: 17
+            zoom: 10
         };
     }
 
@@ -55,36 +56,104 @@ class Maps extends React.Component {
         //Adding user gelocation marker on the map
         map.on('load', function() {
             map.loadImage(
+                marker_green,
+                function(error, image) {
+                    if (error) throw error;
+                    map.addImage('marker_green', image);
+                }
+            )
+            map.loadImage(
+                marker_orange,
+                function(error, image) {
+                    if (error) throw error;
+                    map.addImage('marker_orange', image);
+                }
+            )
+            map.loadImage(
+                marker_red,
+                function(error, image) {
+                    if (error) throw error;
+                    map.addImage('marker_red', image);
+                }
+            )
+            map.loadImage(
+                marker_purple,
+                function(error, image) {
+                    if (error) throw error;
+                    map.addImage('marker_purple', image);
+                }
+            )
+            map.loadImage(
                 marker_position,
                 function(error, image) {
                     if (error) throw error;
-                        map.addImage('marker_position', image);
-                        map.addSource('user_geolocation', {
-                            'type': 'geojson',
-                            'data': {
-                                'type': 'FeatureCollection',
-                                'features': [
-                                    {
-                                        'type': 'Feature',
-                                        'geometry': {
-                                            'type': 'Point',
-                                            'coordinates': [longUser, latUser]
-                                        }
+                    map.addImage('marker_position', image);
+                    map.addSource('user_geolocation', {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': [
+                                {
+                                    'type': 'Feature',
+                                    'geometry': {
+                                        'type': 'Point',
+                                        'coordinates': [longUser, latUser]
                                     }
-                                ]
+                                }
+                            ]
+                        }
+                    });
+                    map.addLayer({
+                        'id': 'user_geolocation_marker',
+                        'type': 'symbol',
+                        'source': 'user_geolocation',
+                        'layout': {
+                            'icon-image': 'marker_position',
+                            'icon-size': 0.10
+                        }
+                    });
+                }
+            );
+        });
+        
+        //Get and display stores on the map
+        let self = this;
+        axios.get('http://projet-web-training.ovh/affluence/Affluence/public/boutique/list', {
+            method: 'GET'
+        })
+        .then(function (response) {
+            response.data.forEach(element => {
+                map.addSource(element.id.toString(), {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'FeatureCollection',
+                        'features': [
+                            {
+                                'type': 'Feature',
+                                'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': [element.Longitude, element.Latitude]
+                                }
                             }
-                        });
-                        map.addLayer({
-                            'id': 'user_geolocation_marker',
-                            'type': 'symbol',
-                            'source': 'user_geolocation',
-                            'layout': {
-                                'icon-image': 'marker_position',
-                                'icon-size': 0.10
-                            }
-                        });
+                        ]
                     }
-                );
+                });
+                map.addLayer({
+                    'id': element.id.toString(),
+                    'type': 'symbol',
+                    'source': element.id.toString(),
+                    'layout': {
+                        'icon-image': 'marker_green',
+                        'icon-size': 0.10
+                    }
+                });
+                map.on('click', element.id.toString(), function(e) {
+                    self.props.setStore(element);
+                });
+            });
+        })
+        .catch(function (error) {
+            console.log(error);
         });
     }
 
@@ -98,9 +167,6 @@ class Maps extends React.Component {
         if (this.state.allowed) {
             return (
                 <div>
-                    <div>
-                        <div className="sidebarStyle" >DEBUG : Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
-                    </div>
                     <div ref={el => this.mapContainer = el} />
                 </div>
             )

@@ -10,7 +10,7 @@ class Search extends React.Component {
         super(props);
         this.state = {
             searchValue: "",
-            result: ["A","A","A","A","A"] //DEBUG
+            result: []
         }
     }
 
