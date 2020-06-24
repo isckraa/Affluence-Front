@@ -1,6 +1,8 @@
 import React, { Fragment } from 'react';
+import '../assets/style/HomePage.css';
 import Maps from './Maps';
 import Search from './Search';
+import Store from './Store';
 
 class Login extends React.Component {
 
@@ -9,7 +11,10 @@ class Login extends React.Component {
         return(
             <Fragment>
                 <Maps />
-                <Search />
+                <div className="rightMenu">
+                    <Search />
+                    <Store />
+                </div>
             </Fragment>
         );
     }

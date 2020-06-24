@@ -23,3 +23,7 @@
     position: absolute;
     right: 1em;
 }
+
+.chevron:hover {
+    cursor: pointer;
+}

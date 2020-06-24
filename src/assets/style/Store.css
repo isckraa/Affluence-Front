@@ -1,0 +1,94 @@
+.store {
+    font-family: 'Montserrat';
+    font-weight: 600;
+    color: #fff;
+}
+
+.head {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid #E84820;
+    margin: 1em;
+    align-items: center;
+}
+
+.head>h5 {
+    color: #fff;
+    font-family: 'Montserrat';
+    font-size: 22px;
+}
+
+.backBtn {
+    color: #9790B2;
+    font-size: 22px;
+    position: absolute;
+    right: 1em;
+}
+
+.storeInfos {
+    display: flex;
+    flex-direction: row;
+    margin: 1em;
+}
+
+.storeImg {
+    max-width: 5em;
+    margin-right: 1em;
+    position: absolute;
+    right: 0;
+}
+
+.timeWait {
+    text-align: center;
+}
+
+.timeWait>p:first-child, .rowPeopleCapacity>div>p:first-child {
+    color: #E84820;
+}
+
+.timeWait>p>span {
+    font-size: 54px;
+}
+
+.rowPeopleCapacity, .rowMaskGel {
+    margin: 1em 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.rowPeopleCapacity>* {
+    text-align: center;
+}
+.rowPeopleCapacity>div>p:first-child {
+    font-size: 38px;
+}
+
+.rowMaskGel {
+    display: inline-grid;
+    grid-template-columns: 50% 50%;
+    grid-gap: 1em;
+    margin: 1em;
+}
+
+.mask, .gel {
+    text-align: center;
+    font-size: 14px;
+}
+
+.maskImg, .gelImg {
+    max-width: 3em;
+}
+
+.editBtn {
+    margin: auto;
+    width: fit-content;
+    background-color: #E1A869;
+    padding: 0.5em 1em;
+    border-radius: 10px;
+    margin-bottom: 1em;
+}
+
+.editBtn:hover, .backBtn:hover {
+    cursor: pointer;
+}

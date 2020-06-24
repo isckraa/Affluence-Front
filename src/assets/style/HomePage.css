@@ -1,0 +1,17 @@
+.rightMenu {
+    position: absolute;
+    top: 1.5em;
+    right: 1.5em;
+    bottom: 1.5em;
+    width: 22em;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.rightMenu>* {
+    background-color: #36305C;
+    opacity: 0.9;
+    border-radius: 15px;
+    padding: 0.2em;
+    margin: 0.5em 0;
+}
