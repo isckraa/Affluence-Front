@@ -19,7 +19,8 @@ class Maps extends React.Component {
             allowed: false,
             lng: 2.33,
             lat: 48.86,
-            zoom: 10
+            zoom: 10,
+            idStoreSelected: null
         };
     }
 
@@ -149,6 +150,31 @@ class Maps extends React.Component {
                 });
                 map.on('click', element.id.toString(), function(e) {
                     self.props.setStore(element);
+                    //unset selected previous store
+                    if (self.state.idStoreSelected) {
+                        if (map.getLayer(self.state.idStoreSelected.toString())) map.removeLayer(self.state.idStoreSelected.toString());
+                        map.addLayer({
+                            'id': self.state.idStoreSelected.toString(),
+                            'type': 'symbol',
+                            'source': self.state.idStoreSelected.toString(),
+                            'layout': {
+                                'icon-image': 'marker_green',
+                                'icon-size': 0.10
+                            }
+                        });
+                    }
+                    //Toggle color
+                    if (map.getLayer(element.id.toString())) map.removeLayer(element.id.toString());
+                    map.addLayer({
+                        'id': element.id.toString(),
+                        'type': 'symbol',
+                        'source': element.id.toString(),
+                        'layout': {
+                            'icon-image': 'marker_purple',
+                            'icon-size': 0.10
+                        }
+                    });
+                    self.setState({idStoreSelected: element.id.toString()})
                 });
             });
         })

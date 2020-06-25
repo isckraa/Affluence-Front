@@ -3,6 +3,9 @@ import '../assets/style/HomePage.css';
 import Maps from './Maps';
 import Search from './Search';
 import Store from './Store';
+import LeftMenu from './LeftMenu';
+import History from './History';
+import Settings from './Settings';
 
 class HomePage extends React.Component {
 
@@ -10,6 +13,8 @@ class HomePage extends React.Component {
         super(props)
         this.state = {
             store: null,
+            connected: false,
+            page: "HOME",
         }
     }
 
@@ -17,11 +22,25 @@ class HomePage extends React.Component {
         this.setState({store: store});
     }
 
+    togglePage = (nextPage) => {
+        this.setState({page: nextPage});
+    }
+
     render() {
         
         return(
             <Fragment>
                 <Maps setStore={this.setStore} />
+                {(() => {
+                    switch(this.state.page) {
+                    case "HISTORY":
+                        return <History />
+                    case "SETTINGS":
+                        return <Settings />
+                    default:
+                        return <LeftMenu connected={this.state.connected} togglePage={this.togglePage} page={this.state.page} />
+                    }
+                })()}
                 <div className="rightMenu">
                     <Search />
                     {this.state.store ? <Store store={this.state.store} setStore={this.setStore} /> : null}
