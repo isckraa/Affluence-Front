@@ -1,6 +1,7 @@
 import React from 'react';
 import '../assets/style/Search.css';
-import Rowsearch from './RowSearch'; 
+import Rowsearch from './RowSearch';
+import axios from 'axios';
 
 var Icon = require('react-fontawesome')
 
@@ -20,11 +21,29 @@ class Search extends React.Component {
     }
 
     search = (value) => {
-        //TODO request to API to get stores list including value
-        //MAX 5 elements in result
+        if (!value || value.length < 3) {
+            this.setState({result: []})
+            return;
+        }
+        let self = this;
+        axios.get("http://projet-web-training.ovh/affluence/Affluence/public/boutique/list_nom", {
+            params: {
+              nom: value
+            }
+          })
+          .then(({data}) => (
+            self.setState({
+                result: data
+            })
+          ));
     }
 
-    render() {
+    render() {   
+        var result = this.state.result.map((store, i) => {
+            return (
+                <Rowsearch store={store} key={i} setStore={this.props.setStore} />
+            );
+        });
         
         return(
             <div className="search">
@@ -33,9 +52,7 @@ class Search extends React.Component {
                     <Icon className="searchBtn" name="search" />
                 </div>
                 <div>
-                {this.state.result.map(function(store, i){
-                    return <Rowsearch store={store} key={i} />;
-                })}
+                {result}
                 </div>
             </div>
         );

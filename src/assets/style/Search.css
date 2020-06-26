@@ -37,7 +37,3 @@
 *:focus {
     outline: none;
 }
-
-.searchBtn:hover {
-    cursor: pointer;
-}

@@ -27,7 +27,6 @@ class HomePage extends React.Component {
     }
 
     render() {
-        
         return(
             <Fragment>
                 <Maps setStore={this.setStore} />
@@ -42,7 +41,7 @@ class HomePage extends React.Component {
                     }
                 })()}
                 <div className="rightMenu">
-                    <Search />
+                    <Search setStore={this.setStore} />
                     {this.state.store ? <Store store={this.state.store} setStore={this.setStore} /> : null}
                 </div>
             </Fragment>
