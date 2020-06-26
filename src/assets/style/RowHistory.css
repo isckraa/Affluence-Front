@@ -1,0 +1,42 @@
+.rowHistory {
+    width: 90%;
+    padding: 0.5em;
+    border-bottom: 2px solid #E84820;
+    font-family: 'Montserrat-Medium';
+    color: #fff;
+}
+
+.rowHistory:hover {
+    cursor: pointer;
+}
+
+.rowHistory>.retracted {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.pointsGlobal, .pointsDetail {
+    color: #E1A869;
+}
+
+.pointsGlobal>span {
+    font-size: 34px;
+}
+
+.pointsDetail>span {
+    font-size: 24px;
+}
+
+.details {
+    margin-top: 1em;
+}
+
+.details>div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin: 0.5em 0;
+}

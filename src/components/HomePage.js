@@ -14,7 +14,7 @@ class HomePage extends React.Component {
         this.state = {
             store: null,
             connected: false,
-            page: "HOME",
+            page: "HISTORY",
         }
     }
 
@@ -34,9 +34,9 @@ class HomePage extends React.Component {
                 {(() => {
                     switch(this.state.page) {
                     case "HISTORY":
-                        return <History />
+                        return <History togglePage={this.togglePage} />
                     case "SETTINGS":
-                        return <Settings />
+                        return <Settings togglePage={this.togglePage} />
                     default:
                         return <LeftMenu connected={this.state.connected} togglePage={this.togglePage} page={this.state.page} />
                     }

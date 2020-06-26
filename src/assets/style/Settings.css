@@ -10,3 +10,15 @@
     flex-direction: column;
     align-items: center;
 }
+
+.backToHome {
+    position: absolute;
+    top: 0.5em;
+    left: 0.5em;
+    color: #9790B2;
+    font-size: 22px;
+}
+
+.backToHome:hover {
+    cursor: pointer;
+}
