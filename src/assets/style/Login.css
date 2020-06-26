@@ -82,14 +82,14 @@
     font-size: 20px;
 }
 
-.login-form input:focus + .label-name .content-name,
-.login-form input:valid + .label-name .content-name {
+.login-form input:focus+.label-name .content-name,
+.login-form input:valid+.label-name .content-name {
     transform: translateY(-150%);
     font-size: 14px;
     color: #E84820;
 }
 
-.login-form input:focus + .label-name:after {
+.login-form input:focus+.label-name:after {
     transform: translateX(0%);
 }
 
@@ -108,6 +108,7 @@
     font-size: 15px;
     text-align: center;
     padding: 10px 5px;
+    color: black;
 }
 
 .cta {
