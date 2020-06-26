@@ -1,12 +1,9 @@
 import React from 'react';
 import '../assets/style/Login.css';
 import Backgound from '../images/login_background.jpg';
+import { Link } from 'react-router-dom';
 
 class Login extends React.Component {
-
-    constructor(props) {
-        super(props);
-    }
 
     render() {        
         return(
@@ -15,13 +12,13 @@ class Login extends React.Component {
                     <h1 className="title">Affluence</h1>
                     <div className="inputs">
                         <div className="username-section input-section">
-                            <input type="text" name="username" className="input" autoComplete="off" required/>
+                            <input type="text" name="username" className="input" autoComplete="off" required  />
                             <label for="username" class="label-name">
                                 <span class="content-name">Utilisateur</span>
                             </label>
                         </div>
                         <div className="password-section input-section">
-                            <input type="password" name="password" class="input" required/>
+                            <input type="password" name="password" class="input" required />
                             <label for="password" class="label-name">
                                 <span class="content-name">Mot de passe</span>
                             </label>
@@ -29,7 +26,9 @@ class Login extends React.Component {
                     </div>
                     <div className="login-form__submit-wrapper">
                         <div className="login-form__button cta">Se Connecter</div>
-                        <div className="login-form__button cta">Créer un compte</div>
+                        <Link to="/signup">
+                            <div className="login-form__button cta">Créer un compte</div>
+                        </Link>
                     </div>
                 </form>
             </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import '../assets/style/LeftMenu.css';
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 import userLogo from '../images/user_icon.png'
 
