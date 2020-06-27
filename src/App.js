@@ -12,9 +12,9 @@ function App() {
       <header className="App-header">
         <BrowserRouter>
           <Switch>
-            <Route exact path='/' component={HomePage} />
-            <Route exact path='/login' component={Login} />
-            <Route exact path='/signup' component={SignUp} />
+            <Route exact path='/affluence/' component={HomePage} />
+            <Route exact path='/affluence/login' component={Login} />
+            <Route exact path='/affluence/signup' component={SignUp} />
             <Route component={NotFound} />
           </Switch>
         </BrowserRouter>

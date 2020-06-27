@@ -8,6 +8,7 @@ import marker_orange from '../images/marker_orange.png';
 import marker_red from '../images/marker_red.png';
 import marker_purple from '../images/marker_purple.png';
 import marker_position from '../images/marker_position.png';
+import { isNull } from 'util';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYmFsemFjYmRtdCIsImEiOiJja2JpNnRvd2swY2I3Mnpxdm9pbmFpMHZsIn0.DaO5L1gj7hISYKsYQ9wsDg';
 
@@ -16,15 +17,16 @@ class Maps extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            allowed: false,
+            allowed: true,
             lng: 2.33,
             lat: 48.86,
-            zoom: 10,
+            zoom: 12,
             idStoreSelected: null
         };
     }
 
-    loadMap = (position) => {
+    loadMap = (position = null) => {
+
         if (position) {
             this.setState({ allowed: true });
         } else {
@@ -184,9 +186,17 @@ class Maps extends React.Component {
     }
 
     componentDidMount() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.loadMap);
+        //DEBUG
+        let debug = {
+            coords: {
+                longitude: "2.3488",
+                latitude: "48.8534"
+            }
         }
+        this.loadMap(debug);
+        // if (navigator.geolocation) {
+        //     navigator.geolocation.getCurrentPosition(this.loadMap);
+        // }
     }
 
     render() {
@@ -199,7 +209,7 @@ class Maps extends React.Component {
         } else {
             return (
                 <div>
-                    <h5>You need to accept localisation</h5>
+                    <h3>You need to accept localisation</h3>
                 </div>
             )
         }
