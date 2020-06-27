@@ -14,7 +14,7 @@ class HomePage extends React.Component {
         this.state = {
             store: null,
             connected: false,
-            page: "HISTORY",
+            page: "HOME",
         }
     }
 

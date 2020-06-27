@@ -22,3 +22,49 @@
 .backToHome:hover {
     cursor: pointer;
 }
+
+.infosUser {
+    width: 90%;
+    margin: 1em;
+}
+
+.infosUser>div {
+    margin: 1.5em 0;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: space-between;
+}
+
+.subtitle {
+    font-family: 'Montserrat-semiBold';
+    font-size: 24px;
+    color: #E1A869;
+}
+
+.field {
+    font-family: 'Montserrat-semiBold';
+    font-size: 18px;
+    color: #fff;
+    padding-left: 0.5em;
+}
+
+.editField {
+    font-size: 22px;
+    color: #fff;
+    margin: 0 0.5em 0.5em 0.5em;
+}
+
+.editField:hover {
+    cursor: pointer;
+}
+
+.inputField {
+    border: 2px solid #E84820;
+    border-radius: 5px;
+    padding: 5px;
+    color: #fff;
+    font-size: 18px;
+    font-family: 'Montserrat';
+    background-color: transparent;
+}
