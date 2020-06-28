@@ -14,3 +14,14 @@
     padding: 0.2em;
     margin: 0.5em 0;
 }
+
+@media only screen and (max-width: 600px) {
+    .rightMenu {
+        bottom: 0;
+        top: unset;
+        width: unset;
+        right: 1em;
+        left: 1em;
+        max-height: 88vh;
+    }
+}

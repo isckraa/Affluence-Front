@@ -91,3 +91,40 @@ a {
     text-decoration: none;
     color: #fff;
 }
+
+@media only screen and (max-width: 600px) {
+    .leftMenu {
+        right: 0;
+        bottom: unset;
+        border-radius: 0 0 20px 20px;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .middleMenu {
+        flex-direction: row;
+        position: relative;
+        transform: unset;
+        top: unset;
+    }
+
+    .userInfo {
+        width: unset;
+        text-align: center;
+        padding: unset;
+    }
+
+    .largeMenu {
+        width: auto;
+        min-height: 10em;
+        justify-content: space-around;
+    }
+
+    .rowMenu>h5, .title {
+        display: none;
+    }
+
+    .menuIcon {
+        margin: 0.5em;
+    }
+}
