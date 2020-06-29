@@ -119,7 +119,7 @@ class Maps extends React.Component {
         
         //Get and display stores on the map
         let self = this;
-        axios.get('http://projet-web-training.ovh/affluence/Affluence/public/boutique/list', {
+        axios.get('https://projet-web-training.ovh/affluence/Affluence/public/boutique/list', {
             method: 'GET'
         })
         .then(function (response) {
