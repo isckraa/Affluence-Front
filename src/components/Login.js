@@ -13,20 +13,20 @@ class Login extends React.Component {
                     <div className="inputs">
                         <div className="username-section input-section">
                             <input type="text" name="username" className="input" autoComplete="off" required  />
-                            <label for="username" class="label-name">
-                                <span class="content-name">Utilisateur</span>
+                            <label forhtml="username" className="label-name">
+                                <span className="content-name">Utilisateur</span>
                             </label>
                         </div>
                         <div className="password-section input-section">
-                            <input type="password" name="password" class="input" required />
-                            <label for="password" class="label-name">
-                                <span class="content-name">Mot de passe</span>
+                            <input type="password" name="password" className="input" required />
+                            <label forhtml="password" className="label-name">
+                                <span className="content-name">Mot de passe</span>
                             </label>
                         </div>
                     </div>
                     <div className="login-form__submit-wrapper">
                         <div className="login-form__button cta">Se Connecter</div>
-                        <Link to="/signup">
+                        <Link to="/affluence/signup">
                             <div className="login-form__button cta">Créer un compte</div>
                         </Link>
                     </div>

@@ -8,7 +8,7 @@ import marker_orange from '../images/marker_orange.png';
 import marker_red from '../images/marker_red.png';
 import marker_purple from '../images/marker_purple.png';
 import marker_position from '../images/marker_position.png';
-import { isNull } from 'util';
+// import { isNull } from 'util';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYmFsemFjYmRtdCIsImEiOiJja2JpNnRvd2swY2I3Mnpxdm9pbmFpMHZsIn0.DaO5L1gj7hISYKsYQ9wsDg';
 

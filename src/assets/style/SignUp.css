@@ -83,32 +83,33 @@
     font-size: 20px;
 }
 
-.signup-form input:focus + .label-name .content-name,
-.signup-form input:valid + .label-name .content-name {
+.signup-form input:focus+.label-name .content-name,
+.signup-form input:valid+.label-name .content-name {
     transform: translateY(-150%);
     font-size: 14px;
     color: #E84820;
 }
 
-.signup-form input:focus + .label-name:after {
+.signup-form input:focus+.label-name:after {
     transform: translateX(0%);
 }
 
-.signup-form .login-form__submit-wrapper {
+.signup-form .signup-form__submit-wrapper {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     width: 290px;
     margin-bottom: 60px;
 }
 
-.login-form__button {
+.signup-form__button {
     width: 120px;
     background-color: #E84820;
     border-radius: 10px;
     font-size: 15px;
     text-align: center;
     padding: 10px 5px;
+    color: black;
 }
 
 .cta {
