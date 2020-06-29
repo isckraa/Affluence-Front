@@ -90,8 +90,6 @@ class Store extends React.Component {
             body: JSON.stringify(nextState)
         }).then((response) => {
             response.json().then((response) => {
-                console.log(response);
-                console.log(nextState)
                 self.loadData(self.props.store.id);
             })
         }).catch(err => {
@@ -106,7 +104,7 @@ class Store extends React.Component {
                 <div className="store">
                     <div className="head">
                         <h5>Boutique</h5>
-                        <Icon className="backBtn" name="arrow-left" onClick={this.close} />
+                        <Icon className="backBtn" name="times" onClick={this.close} />
                     </div>
                     {this.state.loaded ? <Fragment>
                         <div className="storeInfos">

@@ -27,22 +27,21 @@ class HomePage extends React.Component {
     }
 
     render() {
-        
         return(
             <Fragment>
                 <Maps setStore={this.setStore} />
                 {(() => {
                     switch(this.state.page) {
                     case "HISTORY":
-                        return <History />
+                        return <History togglePage={this.togglePage} />
                     case "SETTINGS":
-                        return <Settings />
+                        return <Settings togglePage={this.togglePage} />
                     default:
                         return <LeftMenu connected={this.state.connected} togglePage={this.togglePage} page={this.state.page} />
                     }
                 })()}
                 <div className="rightMenu">
-                    <Search />
+                    <Search setStore={this.setStore} />
                     {this.state.store ? <Store store={this.state.store} setStore={this.setStore} /> : null}
                 </div>
             </Fragment>

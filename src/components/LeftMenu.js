@@ -44,7 +44,7 @@ class LeftMenu extends React.Component {
                     <img className="avatar" src={userLogo} alt="votre avatar" />
                     <h2>Bienvenue</h2>
                     {this.props.connected ? <h3 className="name">Patrick Nollet</h3> :
-                    <Link to="/login"><div className="btnConnect"><h5>Se connecter</h5></div></Link>}
+                    <Link to="/affluence/login"><div className="btnConnect"><h5>Se connecter</h5></div></Link>}
                 </div> : null}
                 <div className="middleMenu">
                     <div className="rowMenu" onClick={this.goToAccueil}>
