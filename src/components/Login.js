@@ -26,7 +26,7 @@ class Login extends React.Component {
                     </div>
                     <div className="login-form__submit-wrapper">
                         <div className="login-form__button cta">Se Connecter</div>
-                        <Link to="/affluence/signup">
+                        <Link to="/affluence/register">
                             <div className="login-form__button cta">Créer un compte</div>
                         </Link>
                     </div>

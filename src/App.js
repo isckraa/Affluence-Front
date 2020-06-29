@@ -14,7 +14,7 @@ function App() {
           <Switch>
             <Route exact path='/affluence/' component={HomePage} />
             <Route exact path='/affluence/login' component={Login} />
-            <Route exact path='/affluence/signup' component={SignUp} />
+            <Route exact path='/affluence/register' component={SignUp} />
             <Route component={NotFound} />
           </Switch>
         </BrowserRouter>
