@@ -16,10 +16,12 @@ class HomePage extends React.Component {
             connected: false,
             page: "HOME",
         }
+        this.map = React.createRef();
     }
 
     setStore = (store) => {
         this.setState({store: store});
+        this.map.current.setSelectedStore(store);
     }
 
     togglePage = (nextPage) => {
@@ -29,7 +31,7 @@ class HomePage extends React.Component {
     render() {
         return(
             <Fragment>
-                <Maps setStore={this.setStore} />
+                <Maps setStore={this.setStore} ref={this.map} />
                 {(() => {
                     switch(this.state.page) {
                     case "HISTORY":

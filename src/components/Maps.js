@@ -2,27 +2,79 @@ import React from 'react';
 import mapboxgl from 'mapbox-gl';
 import '../assets/style/Maps.css';
 import axios from 'axios';
+import DebugPosition from './DebugPostion';
 
 import marker_green from '../images/marker_green.png';
 import marker_orange from '../images/marker_orange.png';
 import marker_red from '../images/marker_red.png';
 import marker_purple from '../images/marker_purple.png';
 import marker_position from '../images/marker_position.png';
-// import { isNull } from 'util';
 
 mapboxgl.accessToken = 'pk.eyJ1IjoiYmFsemFjYmRtdCIsImEiOiJja2JpNnRvd2swY2I3Mnpxdm9pbmFpMHZsIn0.DaO5L1gj7hISYKsYQ9wsDg';
 
-class Maps extends React.Component {
+let map = null;
 
+class Maps extends React.Component {
+    
     constructor(props) {
         super(props);
         this.state = {
             allowed: true,
             lng: 2.33,
             lat: 48.86,
-            zoom: 12,
+            zoom: 16,
             idStoreSelected: null
         };
+    }
+
+    setSelectedStore = (store) => {
+        //unset selected previous store
+        if (this.state.idStoreSelected) {
+            if (map.getLayer(this.state.idStoreSelected.toString())) map.removeLayer(this.state.idStoreSelected.toString());
+            map.addLayer({
+                'id': this.state.idStoreSelected.toString(),
+                'type': 'symbol',
+                'source': this.state.idStoreSelected.toString(),
+                'layout': {
+                    'icon-image': 'marker_green',
+                    'icon-size': 0.10
+                }
+            });
+        }
+        //Toggle color
+        if(store) {
+            if (map.getLayer(store.id.toString())) map.removeLayer(store.id.toString());
+            map.addLayer({
+                'id': store.id.toString(),
+                'type': 'symbol',
+                'source': store.id.toString(),
+                'layout': {
+                    'icon-image': 'marker_purple',
+                    'icon-size': 0.10
+                }
+            });
+            map.flyTo({ center: [store.Longitude, store.Latitude] });
+            this.setState({idStoreSelected: store.id.toString()});
+        }
+    }
+
+    updateUserPosition = (nextLat, nextLong) => {
+        map.getSource('user_geolocation').setData({
+            "type": "FeatureCollection",
+            "features": [{
+                "type": "Feature",
+                "properties": { "name": "user_geolocation" },
+                "geometry": {
+                    "type": "Point",
+                    "coordinates": [ nextLong, nextLat ]
+                }
+            }]
+        });
+        map.flyTo({ center: [nextLong,nextLat] });
+        this.setState({
+            longUser: nextLong,
+            latUser: nextLat,
+        });
     }
 
     loadMap = (position = null) => {
@@ -41,7 +93,7 @@ class Maps extends React.Component {
             latUser: position.coords.latitude,
         });
 
-        const map = new mapboxgl.Map({
+        map = new mapboxgl.Map({
             container: this.mapContainer,
             style: 'mapbox://styles/balzacbdmt/ckbjyoxr2036v1inwsm1e4gzw',
             center: [longUser, latUser],
@@ -152,31 +204,6 @@ class Maps extends React.Component {
                 });
                 map.on('click', element.id.toString(), function(e) {
                     self.props.setStore(element);
-                    //unset selected previous store
-                    if (self.state.idStoreSelected) {
-                        if (map.getLayer(self.state.idStoreSelected.toString())) map.removeLayer(self.state.idStoreSelected.toString());
-                        map.addLayer({
-                            'id': self.state.idStoreSelected.toString(),
-                            'type': 'symbol',
-                            'source': self.state.idStoreSelected.toString(),
-                            'layout': {
-                                'icon-image': 'marker_green',
-                                'icon-size': 0.10
-                            }
-                        });
-                    }
-                    //Toggle color
-                    if (map.getLayer(element.id.toString())) map.removeLayer(element.id.toString());
-                    map.addLayer({
-                        'id': element.id.toString(),
-                        'type': 'symbol',
-                        'source': element.id.toString(),
-                        'layout': {
-                            'icon-image': 'marker_purple',
-                            'icon-size': 0.10
-                        }
-                    });
-                    self.setState({idStoreSelected: element.id.toString()})
                 });
             });
         })
@@ -186,17 +213,9 @@ class Maps extends React.Component {
     }
 
     componentDidMount() {
-        //DEBUG
-        let debug = {
-            coords: {
-                longitude: "2.3488",
-                latitude: "48.8534"
-            }
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(this.loadMap);
         }
-        this.loadMap(debug);
-        // if (navigator.geolocation) {
-        //     navigator.geolocation.getCurrentPosition(this.loadMap);
-        // }
     }
 
     render() {
@@ -204,6 +223,7 @@ class Maps extends React.Component {
             return (
                 <div>
                     <div ref={el => this.mapContainer = el} />
+                    <DebugPosition updateUserPosition={this.updateUserPosition} map={this.state} />
                 </div>
             )
         } else {
