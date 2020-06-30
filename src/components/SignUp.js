@@ -10,8 +10,7 @@ class SignUp extends React.Component {
             email: "",
             pseudo: "",
             password: "",
-            dataResponse: 0,
-            validPassword: true
+            dataResponse: 0
         }
 
         this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -20,93 +19,100 @@ class SignUp extends React.Component {
         this.signUpUser = this.signUpUser.bind(this);
     }
 
+    // ASYNC FUNCTION THAT SENDS USER DATA TO THE API
     async signUpUser() {
         let currentComponent = this;
 
-        // Simple POST request with a JSON body using fetch
+        // SIMPLE POST REQUEST WITH A JSON BODY USING FETCH
         const requestOptions = {
             method: 'POST',
             body: JSON.stringify(this.state)
         };
-
-        if(currentComponent.state.email !== "" || currentComponent.state.pseudo !== "" || currentComponent.state.validPassword) {
-            fetch('https://www.projet-web-training.ovh/affluence/Affluence/public/user/register', requestOptions)
-                .then(function(response) {
-                    console.log(response);
-                    if(response.status === 409) {
-                        currentComponent.setState({dataResponse: 409});
-                        console.log(currentComponent);
-                    } else if( response.status === 201) {
-                        currentComponent.setState({dataResponse: 201});
-                        console.log(currentComponent);
-                    }
-                })
-                .catch(err => { console.log(err) });
-        }
+        fetch('https://www.projet-web-training.ovh/affluence/Affluence/public/user/register', requestOptions)
+            .then(function(response) {
+                console.log(response);
+                
+                if(currentComponent.state.email === "") {
+                    currentComponent.setState({dataResponse: 1});
+                } else if(currentComponent.state.pseudo === "") {
+                    currentComponent.setState({dataResponse: 2})
+                } else if(currentComponent.state.password === "") {
+                    currentComponent.setState({dataResponse: 3})
+                } else if(!(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(currentComponent.state.password))) {
+                    currentComponent.setState({dataResponse: 4})
+                } else if(response.status === 409) {
+                    currentComponent.setState({dataResponse: 409});
+                    console.log(currentComponent);
+                } else if( response.status === 201) {
+                    currentComponent.setState({dataResponse: 201});
+                    console.log(currentComponent);
+                }
+            })
+            .catch(err => { console.log(err) });
     }
 
+    // CHANGE THE EMAIL IN THE STATE 
     onChangeEmail(event) {
         this.setState({
             email: event.target.value,
         });
     }
 
+    // CHANGE THE USERNAME IN THE STATE 
     onChangePseudo(event) {
         this.setState({
             pseudo: event.target.value,
         });
     }
 
+    // CHANGE THE PASSWORD IN THE STATE
     onChangePassword(event) {
-        if(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(event.target.value)) {
-            this.setState({
-                password: event.target.value,
-                validPassword: true
-            });
-        } else {
-            this.setState({
-                validPassword: false
-            })
-        }
+        this.setState({
+            password: event.target.value,
+        });
     }
 
-    responseRequest() {        
-        if(this.state.dataResponse === 409) {
-            if(this.state.email === "") {
+    // DISPLAY ERRORS BY RESPONSE
+    responseRequest() {
+        switch(this.state.dataResponse) {
+            case 1 :
                 return(
-                    <div className="signup-error error-message">
+                    <div className="form-error error-message">
                         <h3>L'email n'est pas renseigné.</h3>
                     </div>
                 );
-            } else if(this.state.pseudo === "") {
+            case 2 :
                 return(
-                    <div className="signup-error error-message">
+                    <div className="form-error error-message">
                         <h3>Le pseudo n'est pas renseigné.</h3>
                     </div>
                 );
-            } else {
+            case 3 :
                 return(
-                    <div className="signup-error error-message">
+                    <div className="form-error error-message">
+                        <h3>Le mot de passe n'est pas renseigné.</h3>
+                    </div>
+                );
+            case 4 :
+                return(
+                    <div className="form-error error-message">
+                        <h3>Le mot de passe n'est pas correctement reseigné.</h3>
+                    </div>
+                );
+            case 409 :
+                return(
+                    <div className="form-error error-message">
                         <h3>L'email ou le pseudo est déjà utilisé.</h3>
                     </div>
                 );
-            }
-        }
-
-        if(!this.state.validPassword) {
-            return(
-                <div className="signup-error error-message">
-                    <h3>Le mot de passe n'est pas correctement reseigné.</h3>
-                </div>
-            );
-        }
-
-        if(this.state.dataResponse === 201) {
-            return(
-                <div className="signup-error error-message">
-                    <h3>Vous êtes bien enregisté sur le site.</h3>
-                </div>
-            );
+            case 201 :
+                return(
+                    <div className="form-error error-message">
+                        <h3>Vous êtes bien enregisté sur le site.</h3>
+                    </div>
+                );
+            default :
+                return "";
         }
     }
 
@@ -118,7 +124,7 @@ class SignUp extends React.Component {
                         <h1 className="title">Affluence</h1>
                         <div className="inputs">
                             <div className="mail-section input-section">
-                                <input type="email" name="mail" className="input input-email" autoComplete="off" required onChange={this.onChangeEmail} />
+                                <input type="email" name="mail" className="input input-email" autoComplete="off" required onChange={this.onChangeEmail} formNoValidate />
                                 <label htmlFor="mail" className="label-name">
                                     <span className="content-name">Email</span>
                                 </label>

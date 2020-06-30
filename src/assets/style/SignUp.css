@@ -115,3 +115,12 @@
 .cta {
     cursor: pointer;
 }
+
+.form-error {
+    margin-bottom: 25px;
+}
+
+.error-message {
+    color: white;
+    font-family: 'Roboto-Light', sans-serif;
+}
