@@ -15,6 +15,7 @@ class HomePage extends React.Component {
             store: null,
             connected: false,
             page: "HOME",
+            darkMode: false,
         }
         this.map = React.createRef();
     }
@@ -28,6 +29,11 @@ class HomePage extends React.Component {
         this.setState({page: nextPage});
     }
 
+    toggleDarkMode = () => {
+        this.setState({darkMode: !this.state.darkMode});
+        this.map.current.toggleDarkMode(!this.state.darkMode);
+    }
+
     render() {
         return(
             <Fragment>
@@ -39,7 +45,7 @@ class HomePage extends React.Component {
                     case "SETTINGS":
                         return <Settings togglePage={this.togglePage} />
                     default:
-                        return <LeftMenu connected={this.state.connected} togglePage={this.togglePage} page={this.state.page} />
+                        return <LeftMenu connected={this.state.connected} togglePage={this.togglePage} page={this.state.page} toggleDarkMode={this.toggleDarkMode} darkMode={this.state.darkMode} />
                     }
                 })()}
                 <div className="rightMenu">

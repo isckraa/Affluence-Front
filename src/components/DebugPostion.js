@@ -56,8 +56,8 @@ class DebugPosition extends React.Component {
         return(
             <div className="debugPosition">
                 <div className="form">
-                    <input value={this.state.longNew} onChange={this.toggleLongNew} />
-                    <input value={this.state.latNew} onChange={this.toggleLatNew} />
+                    <input value={this.state.longNew+""} onChange={this.toggleLongNew} />
+                    <input value={this.state.latNew+""} onChange={this.toggleLatNew} />
                     <button onClick={() => this.updateUserLocation("NEW")}>Y aller</button>
                 </div>
                 <div className="joystick">

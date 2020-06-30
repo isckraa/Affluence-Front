@@ -92,6 +92,17 @@ a {
     color: #fff;
 }
 
+.darkMode {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: absolute;
+    bottom: 1em;
+    left: 1em;
+    color: #fff;
+    font-family: 'Montserrat';
+}
+
 @media only screen and (max-width: 600px) {
     .leftMenu {
         right: 0;
@@ -115,6 +126,8 @@ a {
     }
 
     .largeMenu {
+        padding-top: 1em;
+        flex-direction: column;
         width: auto;
         min-height: 10em;
         justify-content: space-around;
@@ -126,5 +139,9 @@ a {
 
     .menuIcon {
         margin: 0.5em;
+    }
+
+    .darkMode {
+        position: unset;
     }
 }

@@ -27,6 +27,12 @@ class Maps extends React.Component {
         };
     }
 
+    componentDidMount() {
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(this.loadMap);
+        }
+    }
+
     setSelectedStore = (store) => {
         //unset selected previous store
         if (this.state.idStoreSelected) {
@@ -76,8 +82,16 @@ class Maps extends React.Component {
             latUser: nextLat,
         });
     }
+    
+    toggleDarkMode = (darkMode) => {
+        let layer = 'ckbjyoxr2036v1inwsm1e4gzw';
+        if (darkMode) {
+            layer = 'ckblm0wn60jlj1ilp0vby1glw';
+        }
+        map.setStyle('mapbox://styles/balzacbdmt/'+layer);
+    }
 
-    loadMap = (position = null) => {
+    loadMap = (position) => {
 
         if (position) {
             this.setState({ allowed: true });
@@ -89,8 +103,8 @@ class Maps extends React.Component {
         let latUser = position.coords.latitude;
 
         this.setState({
-            longUser: position.coords.longitude,
-            latUser: position.coords.latitude,
+            longUser: longUser,
+            latUser: latUser,
         });
 
         map = new mapboxgl.Map({
@@ -210,12 +224,6 @@ class Maps extends React.Component {
         .catch(function (error) {
             console.log(error);
         });
-    }
-
-    componentDidMount() {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(this.loadMap);
-        }
     }
 
     render() {
