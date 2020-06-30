@@ -10,7 +10,10 @@ class SignUp extends React.Component {
             email: "",
             pseudo: "",
             password: "",
-            dataResponse: 0
+            response: {
+                status: 0,
+                message: ""
+            },
         }
 
         this.onChangeEmail = this.onChangeEmail.bind(this);
@@ -33,18 +36,19 @@ class SignUp extends React.Component {
                 console.log(response);
                 
                 if(currentComponent.state.email === "") {
-                    currentComponent.setState({dataResponse: 1});
+                    currentComponent.setState({response: {status: 1}});
                 } else if(currentComponent.state.pseudo === "") {
-                    currentComponent.setState({dataResponse: 2})
+                    currentComponent.setState({response: {status: 2}})
                 } else if(currentComponent.state.password === "") {
-                    currentComponent.setState({dataResponse: 3})
-                } else if(!(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/.test(currentComponent.state.password))) {
-                    currentComponent.setState({dataResponse: 4})
+                    currentComponent.setState({response: {status: 3}})
                 } else if(response.status === 409) {
-                    currentComponent.setState({dataResponse: 409});
+                    currentComponent.setState({response: {status: response.status, message: "L'email ou le pseudo est déjà utilisé."}});
+                    console.log(currentComponent);
+                } else if(response.status === 415) {
+                    currentComponent.setState({response: {status: response.status, message: "Le mot de passe n'est pas correctement reseigné."}});
                     console.log(currentComponent);
                 } else if( response.status === 201) {
-                    currentComponent.setState({dataResponse: 201});
+                    currentComponent.setState({response: {status: 201}});
                     console.log(currentComponent);
                 }
             })
@@ -74,7 +78,7 @@ class SignUp extends React.Component {
 
     // DISPLAY ERRORS BY RESPONSE
     responseRequest() {
-        switch(this.state.dataResponse) {
+        switch(this.state.response.status) {
             case 1 :
                 return(
                     <div className="form-error error-message">
@@ -102,7 +106,13 @@ class SignUp extends React.Component {
             case 409 :
                 return(
                     <div className="form-error error-message">
-                        <h3>L'email ou le pseudo est déjà utilisé.</h3>
+                        <h3>{this.state.response.message}</h3>
+                    </div>
+                );
+            case 415 :
+                return(
+                    <div className="form-error error-message">
+                        <h3>{this.state.response.message}</h3>
                     </div>
                 );
             case 201 :
@@ -124,7 +134,7 @@ class SignUp extends React.Component {
                         <h1 className="title">Affluence</h1>
                         <div className="inputs">
                             <div className="mail-section input-section">
-                                <input type="email" name="mail" className="input input-email" autoComplete="off" required onChange={this.onChangeEmail} formNoValidate />
+                                <input type="email" name="mail" className="input input-email" autoComplete="off" required onChange={this.onChangeEmail} />
                                 <label htmlFor="mail" className="label-name">
                                     <span className="content-name">Email</span>
                                 </label>
