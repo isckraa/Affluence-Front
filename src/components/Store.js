@@ -28,7 +28,7 @@ class Store extends React.Component {
     loadData = (id) => {
         this.setState({loaded: false, edit: false});
         let self = this;
-        axios.get('http://projet-web-training.ovh/affluence/Affluence/public/boutique/list/'+id)
+        axios.get('https://projet-web-training.ovh/affluence/Affluence/public/boutique/list/'+id)
         .then(function (response) {
             self.setState({
                 loaded: true,
