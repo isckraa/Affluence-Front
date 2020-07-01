@@ -37,8 +37,8 @@ class Login extends React.Component {
         }).then((response) => {
             response.json().then((response) => {
                 let user = {
-                    "username" : this.state.username,
-                    "token"    : response.token,
+                    username : this.state.username,
+                    token    : response.token,
                 }
                 this.setState({
                     token: response.token,
