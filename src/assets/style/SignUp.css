@@ -99,7 +99,7 @@
     justify-content: space-between;
     align-items: center;
     width: 290px;
-    margin-bottom: 60px;
+    margin-bottom: 35px;
 }
 
 .signup-form__button {
@@ -123,4 +123,8 @@
 .error-message {
     color: white;
     font-family: 'Roboto-Light', sans-serif;
+}
+
+.signup-form__home {
+    margin-bottom: 20px;
 }
