@@ -11,11 +11,14 @@ class Login extends React.Component {
             username: "",
             password: "",
             token: "",
+            responseRequest: {
+                status: 0,
+                message: ""
+            }
         }
 
         this.onChangeUsername = this.onChangeUsername.bind(this);
         this.onChangePassword = this.onChangePassword.bind(this);
-        this.signInUser = this.signInUser.bind(this);
     }
 
     send = () => {
@@ -34,7 +37,14 @@ class Login extends React.Component {
         }).then((response) => {
             response.json().then((response) => {
                 console.log(response);
-                this.setState({token: response.token})
+                this.setState({
+                    token: response.token,
+                    responseRequest :{
+                        status: response.code,
+                        message: response.message,
+                    }
+                })
+                console.log(this.state);
             })
         }).catch(err => {
             console.error(err)
@@ -53,20 +63,26 @@ class Login extends React.Component {
         })
     }
 
-    connectMotherFucker() {
+    checkConnection() {
+        let currentComponentResponse = this.state.responseRequest;
+        if(currentComponentResponse.status === 401) {
+            return(
+                <div className="form-error error-message">
+                    <h3>{currentComponentResponse.message}</h3>
+                </div>
+            )
+        }
         if(this.state.token !== "" && this.state.token !== null ){
             return(
-                <div>
+                <div className="form-error error-message">
                     <h3>Vous êtes connecté.</h3>
-                    <p>{this.state.token}</p>
                 </div>
             )
         }
     }
 
 
-    render() {      
-        // console.log(this.state);
+    render() {
         return(
             <motion.div
                 initial={{ x: "-100%" }}
@@ -101,7 +117,7 @@ class Login extends React.Component {
                             <Link to="/affluence/">
                                 <div className="login-form__button cta">Accueil</div>
                             </Link>
-                            {this.connectMotherFucker()}
+                            {this.checkConnection()}
                         </div>
                     </form>
                 </div>
