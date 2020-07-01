@@ -2,7 +2,7 @@ import React from 'react';
 import mapboxgl from 'mapbox-gl';
 import '../assets/style/Maps.css';
 import axios from 'axios';
-import DebugPosition from './DebugPostion';
+import DebugPosition from './DebugPosition';
 
 import marker_green from '../images/marker_green.png';
 import marker_orange from '../images/marker_orange.png';
@@ -23,13 +23,27 @@ class Maps extends React.Component {
             lng: 2.33,
             lat: 48.86,
             zoom: 16,
-            idStoreSelected: null
+            idStoreSelected: null,
+            autoRefresh: true,
         };
     }
 
     componentDidMount() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(this.loadMap);
+            let self = this;
+            setInterval(function(){
+                if (self.state.autoRefresh) {
+                    navigator.geolocation.getCurrentPosition(self.updateUserPosition);
+                }
+            },5000)
+        }
+    }
+
+    getUserPosition = () => {
+        return {
+            long: this.state.longUser,
+            lat: this.state.latUser
         }
     }
 
@@ -65,6 +79,10 @@ class Maps extends React.Component {
     }
 
     updateUserPosition = (nextLat, nextLong) => {
+        if(!nextLong && nextLat.coords.longitude && nextLat.coords.latitude) {
+            nextLong = nextLat.coords.longitude;
+            nextLat = nextLat.coords.latitude;
+        }
         map.getSource('user_geolocation').setData({
             "type": "FeatureCollection",
             "features": [{
@@ -76,11 +94,13 @@ class Maps extends React.Component {
                 }
             }]
         });
-        map.flyTo({ center: [nextLong,nextLat] });
-        this.setState({
-            longUser: nextLong,
-            latUser: nextLat,
-        });
+        if (!this.state.autoRefresh) {
+            map.flyTo({ center: [nextLong,nextLat] });
+            this.setState({
+                longUser: nextLong,
+                latUser: nextLat,
+            });
+        }
     }
     
     toggleDarkMode = (darkMode) => {
@@ -89,6 +109,13 @@ class Maps extends React.Component {
             layer = 'ckblm0wn60jlj1ilp0vby1glw';
         }
         map.setStyle('mapbox://styles/balzacbdmt/'+layer);
+    }
+
+    toggleAutoRefresh = () => {
+        this.setState({autoRefresh: !this.state.autoRefresh});
+        if (!this.state.autoRefresh) {
+            console.log("oe ça passe")
+        }
     }
 
     loadMap = (position) => {
@@ -231,7 +258,12 @@ class Maps extends React.Component {
             return (
                 <div>
                     <div ref={el => this.mapContainer = el} />
-                    <DebugPosition updateUserPosition={this.updateUserPosition} map={this.state} />
+                    <DebugPosition
+                        updateUserPosition={this.updateUserPosition}
+                        map={this.state}
+                        autoRefresh={this.state.autoRefresh}
+                        toggleAutoRefresh={this.toggleAutoRefresh}
+                    />
                 </div>
             )
         } else {

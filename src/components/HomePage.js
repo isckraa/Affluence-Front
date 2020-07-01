@@ -1,4 +1,6 @@
 import React, { Fragment } from 'react';
+import Cookies from 'universal-cookie';
+import axios from 'axios';
 import '../assets/style/HomePage.css';
 import Maps from './Maps';
 import Search from './Search';
@@ -6,6 +8,13 @@ import Store from './Store';
 import LeftMenu from './LeftMenu';
 import History from './History';
 import Settings from './Settings';
+
+const cookies = new Cookies();
+
+let TokenGenerator = require( 'token-generator' )({
+    salt: 'Licence projet web & mobile 2020 Sorbonne université',
+    timestampMap: 'aqwzsxedcf',
+});
 
 class HomePage extends React.Component {
 
@@ -16,8 +25,33 @@ class HomePage extends React.Component {
             connected: false,
             page: "HOME",
             darkMode: false,
+            waitingStore: {
+                waiting: false,
+                idStore: null,
+            }
         }
         this.map = React.createRef();
+    }
+
+    componentDidMount = () => {
+        let token;
+        cookies.get('token') ? token = cookies.get('token') : token = TokenGenerator.generate();
+        cookies.set('token', token, { 
+            path: '/',
+            maxAge: 20000,
+        });
+        let self = this;
+        setInterval(function(){
+            let posUser = self.map.current.getUserPosition();
+            axios.get('https://projet-web-training.ovh/affluence/Affluence/public/boutique/list_gps?longitude='+posUser.long+'&latitude='+posUser.lat)
+            .then(function (response) {
+                // console.log(response);
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+
+        },10000) //60000 for 1 minute
     }
 
     setStore = (store) => {
@@ -32,6 +66,10 @@ class HomePage extends React.Component {
     toggleDarkMode = () => {
         this.setState({darkMode: !this.state.darkMode});
         this.map.current.toggleDarkMode(!this.state.darkMode);
+    }
+
+    toggleWaitingStore = (nextValue) => {
+        this.setState({waitingStore: nextValue})
     }
 
     render() {
@@ -50,7 +88,10 @@ class HomePage extends React.Component {
                 })()}
                 <div className="rightMenu">
                     <Search setStore={this.setStore} />
-                    {this.state.store ? <Store store={this.state.store} setStore={this.setStore} /> : null}
+                    {this.state.store ? <Store
+                        store={this.state.store}
+                        setStore={this.setStore}
+                    /> : null}
                 </div>
             </Fragment>
         );

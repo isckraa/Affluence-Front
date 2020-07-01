@@ -1,11 +1,16 @@
 .debugPosition {
     position: absolute;
     bottom: 1em;
-    right: 0;
-    left: 0;
+    right: 1em;
+    width: fit-content;
+    height: fit-content;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    background-color: #fff;
+    opacity: 0.9;
+    padding: 1em;
+    border-radius: 10px;
 }
 
 .joystick {
@@ -77,4 +82,11 @@
 
 .moveRight {
     grid-area: moveRight;
+}
+
+.switchAllowGps {
+    display: flex;
+    flex-direction: row;
+    font-family: 'Montserrat';
+    align-items: center;
 }
