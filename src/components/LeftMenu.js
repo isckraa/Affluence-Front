@@ -38,11 +38,13 @@ class LeftMenu extends React.Component {
     }
 
     render() {
-        let user = JSON.parse(localStorage.getItem('user'));
-        if("token" in user && user.token !== "") {
-            this.setState({
-                username: user.username,
-            })
+        if(localStorage.getItem('user') !== null) {
+            let user = JSON.parse(localStorage.getItem('user'));
+            if("token" in user && user.token !== "") {
+                this.setState({
+                    username: user.username,
+                })
+            }
         }
         return (
             <div className={this.state.displayMenu ? "leftMenu largeMenu" : "leftMenu"}>
@@ -51,7 +53,7 @@ class LeftMenu extends React.Component {
                 {this.state.displayMenu ? <div className="userInfo">
                     <img className="avatar" src={userLogo} alt="votre avatar" />
                     <h2>Bienvenue</h2>
-                    { this.state.username === "" ? <Link to="/affluence/login"><div className="btnConnect"><h5>Se connecter</h5></div></Link> : <h3 className="name">{this.state.user}</h3> }
+                    { this.state.username === "" ? <Link to="/affluence/login"><div className="btnConnect"><h5>Se connecter</h5></div></Link> : <h3 className="name">{this.state.username}</h3> }
                     {/* {this.props.connected ? <h3 className="name">Patrick Nollet</h3> :
                     <Link to="/affluence/login"><div className="btnConnect"><h5>Se connecter</h5></div></Link>} */}
                 </div> : null}
