@@ -19,6 +19,15 @@ class LeftMenu extends React.Component {
 
     displayMenu = () => {
         this.setState({displayMenu: !this.state.displayMenu});
+        
+        if(localStorage.getItem('user') !== null) {
+            let user = JSON.parse(localStorage.getItem('user'));
+            if("token" in user && user.token !== "") {
+                this.setState({
+                    username: user.username,
+                })
+            }
+        }
     }
 
     goToAccueil = () => {
@@ -38,14 +47,6 @@ class LeftMenu extends React.Component {
     }
 
     render() {
-        if(localStorage.getItem('user') !== null) {
-            let user = JSON.parse(localStorage.getItem('user'));
-            if("token" in user && user.token !== "") {
-                this.setState({
-                    username: user.username,
-                })
-            }
-        }
         return (
             <div className={this.state.displayMenu ? "leftMenu largeMenu" : "leftMenu"}>
                 {!this.state.displayMenu ? <Icon className="menuIcon" name="bars" onClick={this.displayMenu} />:
