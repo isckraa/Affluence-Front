@@ -26,7 +26,7 @@ class Search extends React.Component {
             return;
         }
         let self = this;
-        axios.get("http://projet-web-training.ovh/affluence/Affluence/public/boutique/list_nom", {
+        axios.get("https://projet-web-training.ovh/affluence/Affluence/public/boutique/list_nom", {
             params: {
               nom: value
             }

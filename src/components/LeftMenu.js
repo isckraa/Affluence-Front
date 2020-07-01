@@ -1,6 +1,7 @@
 import React from 'react';
 import '../assets/style/LeftMenu.css';
 import { Link } from 'react-router-dom';
+import { Switch } from '@material-ui/core';
 
 import userLogo from '../images/user_icon.png'
 
@@ -60,6 +61,14 @@ class LeftMenu extends React.Component {
                         {this.state.displayMenu ? <h5>Paramètres</h5> : null}
                     </div>
                 </div>
+                {this.state.displayMenu ? <div className="darkMode">
+                    <p>mode sombre</p>
+                    <Switch
+                        checked={this.props.darkMode}
+                        onChange={this.props.toggleDarkMode}
+                        color="default"
+                    />
+                </div> : null}
             </div>
         )
     }
