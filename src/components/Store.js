@@ -2,9 +2,11 @@ import React, { Fragment } from 'react';
 import '../assets/style/Store.css';
 import { Switch } from '@material-ui/core';
 import axios from 'axios';
+import Cookies from 'universal-cookie';
 import maskImg from '../images/mask.png';
 import gelImg from '../images/gel.png';
 
+const cookies = new Cookies();
 var Icon = require('react-fontawesome')
 
 class Store extends React.Component {
