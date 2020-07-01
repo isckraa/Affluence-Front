@@ -18,7 +18,6 @@ serviceWorker.unregister();
 
 let elem = document.querySelector('.App');
 let div = document.querySelector('.debugPosition');
-console.log(div)
 let x = 0;
 let y = 0;
 let mousedown = false;

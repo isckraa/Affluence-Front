@@ -45,7 +45,8 @@ class HomePage extends React.Component {
             let posUser = self.map.current.getUserPosition();
             axios.get('https://projet-web-training.ovh/affluence/Affluence/public/boutique/list_gps?longitude='+posUser.long+'&latitude='+posUser.lat)
             .then(function (response) {
-                // console.log(response);
+                console.log(response);
+
             })
             .catch(function (error) {
                 console.log(error);

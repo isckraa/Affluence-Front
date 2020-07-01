@@ -113,9 +113,6 @@ class Maps extends React.Component {
 
     toggleAutoRefresh = () => {
         this.setState({autoRefresh: !this.state.autoRefresh});
-        if (!this.state.autoRefresh) {
-            console.log("oe ça passe")
-        }
     }
 
     loadMap = (position) => {
