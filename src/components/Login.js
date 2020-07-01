@@ -34,6 +34,29 @@ class Login extends React.Component {
             .catch(err => { console.log(err) });
     }
 
+    send = () => {
+        let nextState = {
+            "username": this.state.username,
+            "password": this.state.password
+        };
+        let self = this;
+        fetch('https://projet-web-training.ovh/affluence/Affluence/public/api/login_check', {
+            method: 'POST',
+            body: JSON.stringify(nextState),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': '*/*'
+            }
+        }).then((response) => {
+            response.json().then((response) => {
+                console.log(response);
+                this.setState({token: response.token})
+            })
+        }).catch(err => {
+            console.error(err)
+        })
+    };
+
     onChangeUsername(event) {
         this.setState({
             username: event.target.value
@@ -44,6 +67,17 @@ class Login extends React.Component {
         this.setState({
             password: event.target.value
         })
+    }
+
+    connectMotherFucker() {
+        if(this.state.token !== "" && this.state.token !== null ){
+            return(
+                <div>
+                    <h3>Vous êtes connecté.</h3>
+                    <p>{this.state.token}</p>
+                </div>
+            )
+        }
     }
 
 
@@ -68,10 +102,11 @@ class Login extends React.Component {
                         </div>
                     </div>
                     <div className="login-form__submit-wrapper">
-                        <div className="login-form__button cta" onClick={this.signInUser}>Se Connecter</div>
+                        <div className="login-form__button cta" onClick={this.send}>Se Connecter</div>
                         <Link to="/affluence/register">
                             <div className="login-form__button cta">Créer un compte</div>
                         </Link>
+                        { this.connectMotherFucker()}
                     </div>
                 </form>
             </div>
