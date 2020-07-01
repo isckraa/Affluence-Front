@@ -6,6 +6,7 @@ import Store from './Store';
 import LeftMenu from './LeftMenu';
 import History from './History';
 import Settings from './Settings';
+import { motion } from 'framer-motion';
 
 class HomePage extends React.Component {
 
@@ -36,23 +37,30 @@ class HomePage extends React.Component {
 
     render() {
         return(
-            <Fragment>
-                <Maps setStore={this.setStore} ref={this.map} />
-                {(() => {
-                    switch(this.state.page) {
-                    case "HISTORY":
-                        return <History togglePage={this.togglePage} />
-                    case "SETTINGS":
-                        return <Settings togglePage={this.togglePage} />
-                    default:
-                        return <LeftMenu connected={this.state.connected} togglePage={this.togglePage} page={this.state.page} toggleDarkMode={this.toggleDarkMode} darkMode={this.state.darkMode} />
-                    }
-                })()}
-                <div className="rightMenu">
-                    <Search setStore={this.setStore} />
-                    {this.state.store ? <Store store={this.state.store} setStore={this.setStore} /> : null}
-                </div>
-            </Fragment>
+            <motion.div 
+                initial={{ x: "-100%" }}
+                animate={{ x: 0 }} 
+                exit={{ x: "-100%" }} 
+                transition={{ duration: 1 }}
+            >
+                <Fragment>
+                    <Maps setStore={this.setStore} ref={this.map} />
+                    {(() => {
+                        switch(this.state.page) {
+                        case "HISTORY":
+                            return <History togglePage={this.togglePage} />
+                        case "SETTINGS":
+                            return <Settings togglePage={this.togglePage} />
+                        default:
+                            return <LeftMenu connected={this.state.connected} togglePage={this.togglePage} page={this.state.page} toggleDarkMode={this.toggleDarkMode} darkMode={this.state.darkMode} />
+                        }
+                    })()}
+                    <div className="rightMenu">
+                        <Search setStore={this.setStore} />
+                        {this.state.store ? <Store store={this.state.store} setStore={this.setStore} /> : null}
+                    </div>
+                </Fragment>
+            </motion.div>
         );
     }
 }

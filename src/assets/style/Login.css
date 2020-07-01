@@ -98,7 +98,7 @@
     justify-content: space-between;
     align-items: center;
     width: 290px;
-    margin-bottom: 60px;
+    margin-bottom: 35px;
 }
 
 .login-form__button {
@@ -113,4 +113,8 @@
 
 .cta {
     cursor: pointer;
+}
+
+.login-form__home {
+    margin-bottom: 20px;
 }
