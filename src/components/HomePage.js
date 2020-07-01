@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import {withRouter} from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import '../assets/style/HomePage.css';
@@ -41,17 +42,20 @@ class HomePage extends React.Component {
             maxAge: 20000,
         });
         let self = this;
+        
+        console.log(window.location.pathname);
         setInterval(function(){
-            let posUser = self.map.current.getUserPosition();
-            axios.get('https://projet-web-training.ovh/affluence/Affluence/public/boutique/list_gps?longitude='+posUser.long+'&latitude='+posUser.lat)
-            .then(function (response) {
-                console.log(response);
+            if (window.location.pathname === "/affluence/") {
+                let posUser = self.map.current.getUserPosition();
+                axios.get('https://projet-web-training.ovh/affluence/Affluence/public/boutique/list_gps?longitude='+posUser.long+'&latitude='+posUser.lat)
+                .then(function (response) {
+                    console.log(response);
 
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            }
         },10000) //60000 for 1 minute
     }
 
@@ -99,4 +103,4 @@ class HomePage extends React.Component {
     }
 }
 
-export default HomePage;
+export default withRouter(HomePage);
