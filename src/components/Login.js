@@ -26,11 +26,6 @@ class Login extends React.Component {
             "username": this.state.username,
             "password": this.state.password,
         };
-
-        let user = {
-            "username" : this.state.username,
-            "token"    : this.state.token,
-        }
         
         fetch('https://projet-web-training.ovh/affluence/Affluence/public/api/login_check', {
             method: 'POST',
@@ -41,7 +36,10 @@ class Login extends React.Component {
             }
         }).then((response) => {
             response.json().then((response) => {
-                console.log(response);
+                let user = {
+                    "username" : this.state.username,
+                    "token"    : response.token,
+                }
                 this.setState({
                     token: response.token,
                     responseRequest :{
