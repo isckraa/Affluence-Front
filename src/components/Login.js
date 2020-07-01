@@ -18,27 +18,28 @@ class Login extends React.Component {
         this.signInUser = this.signInUser.bind(this);
     }
 
-    signInUser() {
-        // let currentComponent = this;
-
-        // SIMPLE POST REQUEST WITH A JSON BODY USING FETCH
-        const requestOptions = {
-            method: 'POST',
-            body: JSON.stringify({"username": this.state.username, "password": this.state.password}),
-            header: {
-                'Content-Type': 'application/json'
-            }
+    send = () => {
+        let nextState = {
+            "username": this.state.username,
+            "password": this.state.password
         };
-
-        fetch('https://projet-web-training.ovh/affluence/Affluence/public/api/login_check', requestOptions)
-            .then(function(response) {
-                console.log('Response :' + response);
-                response.json().then((response) => {
-                    console.log(response);
-                })
+        let self = this;
+        fetch('https://projet-web-training.ovh/affluence/Affluence/public/api/login_check', {
+            method: 'POST',
+            body: JSON.stringify(nextState),
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': '*/*'
+            }
+        }).then((response) => {
+            response.json().then((response) => {
+                console.log(response);
+                this.setState({token: response.token})
             })
-            .catch(err => { console.log(err) });
-    }
+        }).catch(err => {
+            console.error(err)
+        })
+    };
 
     onChangeUsername(event) {
         this.setState({
@@ -52,14 +53,25 @@ class Login extends React.Component {
         })
     }
 
+    connectMotherFucker() {
+        if(this.state.token !== "" && this.state.token !== null ){
+            return(
+                <div>
+                    <h3>Vous êtes connecté.</h3>
+                    <p>{this.state.token}</p>
+                </div>
+            )
+        }
+    }
+
 
     render() {      
         // console.log(this.state);
         return(
-            <motion.div 
+            <motion.div
                 initial={{ x: "-100%" }}
-                animate={{ x: 0 }} 
-                exit={{ x: "-100%" }} 
+                animate={{ x: 0 }}
+                exit={{ x: "-100%" }}
                 transition={{ duration: 1 }}
             >
                 <div className="login-content" style={{background: `url(${Backgound}) center center / cover no-repeat`}}>
@@ -80,7 +92,7 @@ class Login extends React.Component {
                             </div>
                         </div>
                         <div className="login-form__submit-wrapper">
-                            <div className="login-form__button cta" onClick={this.signInUser}>Se Connecter</div>
+                            <div className="login-form__button cta" onClick={this.send}>Se Connecter</div>
                             <Link to="/affluence/register">
                                 <div className="login-form__button cta">Créer un compte</div>
                             </Link>
@@ -89,6 +101,7 @@ class Login extends React.Component {
                             <Link to="/affluence/">
                                 <div className="login-form__button cta">Accueil</div>
                             </Link>
+                            {this.connectMotherFucker()}
                         </div>
                     </form>
                 </div>
