@@ -24,9 +24,14 @@ class Login extends React.Component {
     send = () => {
         let nextState = {
             "username": this.state.username,
-            "password": this.state.password
+            "password": this.state.password,
         };
-        let self = this;
+
+        let user = {
+            "username" : this.state.username,
+            "token"    : this.state.token,
+        }
+        
         fetch('https://projet-web-training.ovh/affluence/Affluence/public/api/login_check', {
             method: 'POST',
             body: JSON.stringify(nextState),
@@ -44,7 +49,7 @@ class Login extends React.Component {
                         message: response.message,
                     }
                 })
-                console.log(this.state);
+                localStorage.setItem('user',JSON.stringify(user));
             })
         }).catch(err => {
             console.error(err)
@@ -117,8 +122,8 @@ class Login extends React.Component {
                             <Link to="/affluence/">
                                 <div className="login-form__button cta">Accueil</div>
                             </Link>
-                            {this.checkConnection()}
                         </div>
+                        {this.checkConnection()}
                     </form>
                 </div>
             </motion.div>
