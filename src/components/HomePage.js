@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { withRouter } from 'react-router-dom';
-import Cookies from 'universal-cookie';
 import axios from 'axios';
 import '../assets/style/HomePage.css';
 import Maps from './Maps';
@@ -10,13 +9,6 @@ import LeftMenu from './LeftMenu';
 import History from './History';
 import Settings from './Settings';
 import { motion } from 'framer-motion';
-
-const cookies = new Cookies();
-
-let TokenGenerator = require( 'token-generator' )({
-    salt: 'Licence projet web & mobile 2020 Sorbonne université',
-    timestampMap: 'aqwzsxedcf',
-});
 
 class HomePage extends React.Component {
 
@@ -33,23 +25,17 @@ class HomePage extends React.Component {
         }
         this.map = React.createRef();
     }
-    
+
     componentDidMount = () => {
         let token;
-        cookies.get('token') ? token = cookies.get('token') : token = TokenGenerator.generate();
-        cookies.set('token', token, { 
-            path: '/',
-            maxAge: 20000,
-        });
         let self = this;
+
         if(localStorage.getItem('user') !== null) {
             let user = JSON.parse(localStorage.getItem('user'));
             if("username" in user && user.username !== "") {
                 axios.get('https://projet-web-training.ovh/affluence/Affluence/public/user/list_pseudo?username='+user.username)
                 .then(function (response) {
-                    self.setState({
-                        user: response.data[0]
-                    })
+                    self.setState({ user: response.data[0] })
                     token = user.token;
                 })
                 .catch(function (error) {
@@ -59,7 +45,6 @@ class HomePage extends React.Component {
         }
         setInterval(function(){
             if (window.location.pathname === "/affluence/" || window.location.pathname === "/affluence") {
-                console.log(token);
                 let posUser = self.map.current.getUserPosition();
                 
                 if (!self.state.lastPosUser) self.setState({lastPosUser: posUser});
@@ -70,8 +55,10 @@ class HomePage extends React.Component {
                 let maxBottom = self.state.lastPosUser.lat-0.0000901;
 
                 if (posUser.long < maxRight && posUser.long > maxLeft && posUser.lat < maxTop && posUser.lat > maxBottom) {
+
                     self.setState({cycleCounter: self.state.cycleCounter+1});
-                    if (self.state.cycleCounter >= 6) {
+                    
+                    if (self.state.cycleCounter >= 6 && token) {
                         let headers = new Headers();
                         headers.set('Authorization', 'Bearer ' + token);
                         fetch('https://projet-web-training.ovh/affluence/Affluence/public/api/info/pushGeo', {
@@ -81,14 +68,10 @@ class HomePage extends React.Component {
                                 "latitude": posUser.lat,
                                 "longitude": posUser.long,
                             })
-                        }).then((response) => {
-                            response.json().then((response) => {
-                                console.log(response);
-                            })
-                        }).catch(err => {
+                        })
+                        .catch(err => {
                             console.error(err)
                         })
-                        console.log("ACTUALISATION !"+token)
                     }
                 } else {
                     self.setState({

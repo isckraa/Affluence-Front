@@ -83,17 +83,19 @@ class Maps extends React.Component {
             nextLong = nextLat.coords.longitude;
             nextLat = nextLat.coords.latitude;
         }
-        map.getSource('user_geolocation').setData({
-            "type": "FeatureCollection",
-            "features": [{
-                "type": "Feature",
-                "properties": { "name": "user_geolocation" },
-                "geometry": {
-                    "type": "Point",
-                    "coordinates": [ nextLong, nextLat ]
-                }
-            }]
-        });
+        if (map.getSource('user_geolocation')) {
+            map.getSource('user_geolocation').setData({
+                "type": "FeatureCollection",
+                "features": [{
+                    "type": "Feature",
+                    "properties": { "name": "user_geolocation" },
+                    "geometry": {
+                        "type": "Point",
+                        "coordinates": [ nextLong, nextLat ]
+                    }
+                }]
+            });
+        }
         if (!this.state.autoRefresh) {
             map.flyTo({ center: [nextLong,nextLat] });
             this.setState({

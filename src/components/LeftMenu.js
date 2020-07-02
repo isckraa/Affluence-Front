@@ -94,10 +94,10 @@ class LeftMenu extends React.Component {
                         <Icon className="menuIcon" name="home" />
                         {this.state.displayMenu ? <h5>Accueil</h5> : null}
                     </div>
-                    {this.props.connected ? <div className="rowMenu" onClick={this.goToHistory}>
+                    {/* {this.props.connected ? <div className="rowMenu" onClick={this.goToHistory}>
                         <Icon className="menuIcon" name="clipboard-list" />
                         {this.state.displayMenu ? <h5>Historique</h5> : null}
-                    </div> : null }
+                    </div> : null } */}
                     <div className="rowMenu" onClick={this.goToSettings}>
                         <Icon className="menuIcon" name="cogs" />
                         {this.state.displayMenu ? <h5>Paramètres</h5> : null}
