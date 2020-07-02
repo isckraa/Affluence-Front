@@ -37,6 +37,20 @@
     justify-content: space-between;
 }
 
+.roleUser {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.roleUser h5 {
+    font-family: 'Montserrat-semiBold';
+    font-size: 18px;
+    color: #fff;
+    padding-left: 0.5em;
+}
+
 .subtitle {
     font-family: 'Montserrat-semiBold';
     font-size: 24px;
