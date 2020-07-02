@@ -74,7 +74,7 @@ class HomePage extends React.Component {
                     self.setState({cycleCounter: self.state.cycleCounter+1});
                     console.log("cycle++")
                     if (self.state.cycleCounter >= 6) {
-                        fetch('https://projet-web-training.ovh/affluence/Affluence/public/info/pushGeo', {
+                        fetch('https://projet-web-training.ovh/affluence/Affluence/public/api/info/pushGeo', {
                             method: 'POST',
                             body: JSON.stringify({
                                 "latitude": posUser.lat,
@@ -141,6 +141,7 @@ class HomePage extends React.Component {
                         {this.state.store ? <Store
                             store={this.state.store}
                             setStore={this.setStore}
+                            user={this.state.user}
                         /> : null}
                     </div>
                 </Fragment>

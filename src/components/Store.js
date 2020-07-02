@@ -39,8 +39,7 @@ class Store extends React.Component {
                 codePostal: response.data.codePostal,
                 ville: response.data.ville,
                 nom: response.data.nom,
-                maxClient: response.data.maxClient, 
-                people: 0, //After, get the current value
+                maxClient: response.data.maxClient,
                 maskRequired:response.data.maskRequired,
                 gel: response.data.gel,
             })
@@ -110,6 +109,10 @@ class Store extends React.Component {
     }
 
     render() {
+        let admin = false;
+        if (this.props.user && this.props.user.hasOwnProperty("boutique") && this.props.user.boutique && this.props.user.boutique.hasOwnProperty("id")) {
+            this.props.store.id === this.props.user.boutique.id ? admin = true : admin = false;
+        }
         
         if (!this.state.edit) {
             return(
@@ -132,10 +135,10 @@ class Store extends React.Component {
                             <p>Temps d'attente estimé</p>
                         </div>
                         <div className="rowPeopleCapacity">
-                            <div className="people">
+                            {/* <div className="people">
                                 <p>{this.state.people}</p>
                                 <p>Personnes</p>
-                            </div>
+                            </div> */}
                             <div className="capacity">
                                 <p>{this.state.maxClient}</p>
                                 <p>Capacités max.</p>
@@ -151,9 +154,9 @@ class Store extends React.Component {
                                 <p>Gel hydroalcoolique disponible</p>
                             </div>: null}
                         </div>
-                        <div className="editBtn" onClick={this.edit}>
-                            <h5>Suggérer une modification</h5>
-                        </div>
+                        {admin ? <div className="editBtn" onClick={this.edit}>
+                            <h5>Modifier les informations</h5>
+                        </div>: null }
                     </Fragment> : null }
                 </div>
             );
@@ -177,10 +180,10 @@ class Store extends React.Component {
                             <p>Capacités maximal</p>
                             <input type="number" className="numberStoreEdit" value={this.state.maxClient} onChange={this.handleChangeCapacity} />
                         </div>
-                        <div className="editPeople">
+                        {/* <div className="editPeople">
                             <p>Personnes dans la file d'attente</p>
                             <input type="number" className="peopleStoreEdit" value={this.state.people} onChange={this.handleChangePeople} />
-                        </div>
+                        </div> */}
                         <div className="editMask">
                             <p>Masque obligatoire</p>
                             <Switch
