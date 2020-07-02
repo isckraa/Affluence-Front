@@ -28,6 +28,7 @@ class HomePage extends React.Component {
             page: "HOME",
             darkMode: false,
             lastPosUser: null,
+            cycleCounter: 0
         }
         this.map = React.createRef();
     }
@@ -51,23 +52,34 @@ class HomePage extends React.Component {
                 let maxTop = self.state.lastPosUser.lat+0.0000901;
                 let maxBottom = self.state.lastPosUser.lat-0.0000901;
 
-                if (posUser.long > maxRight || posUser.long < maxLeft || posUser.lat > maxTop || posUser.lat < maxBottom) {
-                    fetch('https://projet-web-training.ovh/affluence/Affluence/public/info/pushGeo', {
-                        method: 'POST',
-                        body: JSON.stringify({
-                            "latitude": posUser.lat,
-                            "longitude": posUser.long,
-                            "userId": 1 //TODO get user_id
+                if (posUser.long < maxRight && posUser.long > maxLeft && posUser.lat < maxTop && posUser.lat > maxBottom) {
+                    self.setState({cycleCounter: self.state.cycleCounter+1});
+                    console.log("cycle++")
+                    if (self.state.cycleCounter >= 6) {
+                        fetch('https://projet-web-training.ovh/affluence/Affluence/public/info/pushGeo', {
+                            method: 'POST',
+                            body: JSON.stringify({
+                                "latitude": posUser.lat,
+                                "longitude": posUser.long,
+                                "userId": 1 //TODO get user_id
+                            })
+                        }).then((response) => {
+                            response.json().then((response) => {
+                                console.log(response);
+                            })
+                        }).catch(err => {
+                            console.error(err)
                         })
-                    }).then((response) => {
-                        response.json().then((response) => {
-                            console.log(response);
-                        })
-                    }).catch(err => {
-                        console.error(err)
-                    })
-                    self.setState({lastPosUser: posUser});
+                        console.log("ACTUALISATION !")
+                    }
+                } else {
+                    console.log("reset cycle & la pos")
+                    self.setState({
+                        cycleCounter: 0,
+                        lastPosUser: posUser,
+                    });
                 }
+                console.log("On passe")
             }
         },30000)
     }

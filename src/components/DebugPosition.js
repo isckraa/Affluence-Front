@@ -11,22 +11,31 @@ class DebugPosition extends React.Component {
         this.state = {
             longNew: null,
             latNew: null,
+            manual: false,
         }
     }
 
     componentWillReceiveProps = (elem) => {
-        this.setState({
-            longNew: elem.map.longUser,
-            latNew: elem.map.latUser
-        });
+        if (!this.state.manual) {
+            this.setState({
+                longNew: elem.map.longUser,
+                latNew: elem.map.latUser
+            });
+        }
     }
 
     toggleLongNew = (event) => {
-        this.setState({longNew: event.target.value});
+        this.setState({
+            longNew: event.target.value,
+            manual: true,
+        });
     }
 
     toggleLatNew = (event) => {
-        this.setState({latNew: event.target.value});
+        this.setState({
+            latNew: event.target.value,
+            manual: true,
+        });
     }
 
     updateUserLocation = (dir) => {
@@ -47,6 +56,9 @@ class DebugPosition extends React.Component {
         lat = this.roundOff(lat,8);
         long = this.roundOff(long,8);
         this.props.updateUserPosition(lat, long);
+        this.setState({
+            manual: false,
+        });
     }
 
     roundOff(value, decimals) {
