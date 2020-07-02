@@ -1,7 +1,6 @@
 import React, { Fragment } from 'react';
 import {withRouter} from 'react-router-dom';
 import Cookies from 'universal-cookie';
-import axios from 'axios';
 import '../assets/style/HomePage.css';
 import Maps from './Maps';
 import Search from './Search';

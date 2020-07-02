@@ -9,10 +9,12 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    transition: all .8s cubic-bezier(0.68, 0.27, 0.3, 0.71);
 }
 
 .largeMenu {
     width: 18em;
+    transition: all .8s cubic-bezier(0.68, 0.27, 0.3, 0.71);
 }
 
 .menuIcon {
@@ -22,6 +24,11 @@
     text-align: center;
     margin-top: 0.5em;
     text-align: center;
+    transition: all .5s cubic-bezier(0.68, 0.27, 0.3, 0.71);
+}
+
+.menuIcon:hover {
+    color: #E84820;
 }
 
 .menuIcon:hover,
@@ -53,6 +60,15 @@
     align-items: center;
 }
 
+.rowMenu h5 {
+    transition: all .5s cubic-bezier(0.68, 0.27, 0.3, 0.71);
+}
+
+.rowMenu:hover h5,
+.rowMenu:hover .menuIcon {
+    color: #E84820;
+}
+
 .title {
     font-family: 'Courgette', sans-serif;
     font-size: 38px;
@@ -74,6 +90,11 @@
     position: absolute;
     right: 20px;
     color: white;
+    transition: all .5s cubic-bezier(0.68, 0.27, 0.3, 0.71);
+}
+
+.closeMenuBtn:hover {
+    color: #E84820;
 }
 
 .userInfo {
