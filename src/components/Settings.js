@@ -24,6 +24,7 @@ class Settings extends React.Component {
                     <FieldEditable title="E-mail" value="patrick@mail.fr" />
                     <FieldEditable title="Mot de passe" value="**********" />
                 </div>
+                <Icon className="closeMenuBtnMobile" name="chevron-up" onClick={this.backToHome} />
                 {/* TODO if store: add field: name, lat, long, adresse, cp, ville */}
             </div>
         );

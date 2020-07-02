@@ -25,7 +25,8 @@
 
 .infosUser {
     width: 90%;
-    margin: 1em;
+    margin: 10px;
+    padding-bottom: 30px;
 }
 
 .infosUser>div {
