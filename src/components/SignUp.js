@@ -46,7 +46,7 @@ class SignUp extends React.Component {
                     currentComponent.setState({response: {status: response.status, message: "L'email ou le pseudo est déjà utilisé."}});
                     console.log(currentComponent);
                 } else if(response.status === 415) {
-                    currentComponent.setState({response: {status: response.status, message: "Le mot de passe n'est pas correctement reseigné."}});
+                    currentComponent.setState({response: {status: response.status, message: "Le mot de passe doit contenir au moins une minuscule, une majuscule, un caractère spécial [$ @ % * + - _ !] et 6 caractères. "}});
                     console.log(currentComponent);
                 } else if( response.status === 201) {
                     currentComponent.setState({response: {status: 201}});
@@ -83,43 +83,43 @@ class SignUp extends React.Component {
             case 1 :
                 return(
                     <div className="form-error error-message">
-                        <h3>L'email n'est pas renseigné.</h3>
+                        <h4>L'email n'est pas renseigné.</h4>
                     </div>
                 );
             case 2 :
                 return(
                     <div className="form-error error-message">
-                        <h3>Le pseudo n'est pas renseigné.</h3>
+                        <h4>Le pseudo n'est pas renseigné.</h4>
                     </div>
                 );
             case 3 :
                 return(
                     <div className="form-error error-message">
-                        <h3>Le mot de passe n'est pas renseigné.</h3>
+                        <h4>Le mot de passe n'est pas renseigné.</h4>
                     </div>
                 );
             case 4 :
                 return(
                     <div className="form-error error-message">
-                        <h3>Le mot de passe n'est pas correctement reseigné.</h3>
+                        <h4>Le mot de passe n'est pas correctement reseigné.</h4>
                     </div>
                 );
             case 409 :
                 return(
                     <div className="form-error error-message">
-                        <h3>{this.state.response.message}</h3>
+                        <h4>{this.state.response.message}</h4>
                     </div>
                 );
             case 415 :
                 return(
                     <div className="form-error error-message">
-                        <h3>{this.state.response.message}</h3>
+                        <h4>{this.state.response.message}</h4>
                     </div>
                 );
             case 201 :
                 return(
                     <div className="form-error error-message">
-                        <h3>Vous êtes bien enregisté sur le site.</h3>
+                        <h4>Vous êtes bien enregisté sur le site.</h4>
                     </div>
                 );
             default :

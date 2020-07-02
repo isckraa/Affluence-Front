@@ -117,10 +117,12 @@
 }
 
 .form-error {
+    width: 290px;
     margin-bottom: 25px;
 }
 
 .error-message {
+    text-align: center;
     color: white;
     font-family: 'Roboto-Light', sans-serif;
 }
