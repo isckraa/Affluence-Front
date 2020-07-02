@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import {withRouter} from 'react-router-dom';
 import Cookies from 'universal-cookie';
+import axios from 'axios';
 import '../assets/style/HomePage.css';
 import Maps from './Maps';
 import Search from './Search';
@@ -27,11 +28,12 @@ class HomePage extends React.Component {
             page: "HOME",
             darkMode: false,
             lastPosUser: null,
-            cycleCounter: 0
+            cycleCounter: 0,
+            user: null
         }
         this.map = React.createRef();
     }
-
+    
     componentDidMount = () => {
         let token;
         cookies.get('token') ? token = cookies.get('token') : token = TokenGenerator.generate();
@@ -40,12 +42,29 @@ class HomePage extends React.Component {
             maxAge: 20000,
         });
         let self = this;
+        if(localStorage.getItem('user') !== null) {
+            let user = JSON.parse(localStorage.getItem('user'));
+            if("username" in user && user.username !== "") {
+                axios.get('https://projet-web-training.ovh/affluence/Affluence/public/user/list_pseudo?username='+user.username)
+                .then(function (response) {
+                    self.setState({
+                        user: response.data[0]
+                    })
+                    token = response.data[0].id;
+                    console.log(response.data);
+                    console.log(token);
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            }
+        }
         setInterval(function(){
             if (window.location.pathname === "/affluence/" || window.location.pathname === "/affluence") {
                 let posUser = self.map.current.getUserPosition();
-
+                
                 if (!self.state.lastPosUser) self.setState({lastPosUser: posUser});
-
+                
                 let maxRight = self.state.lastPosUser.long+0.0001282;
                 let maxLeft = self.state.lastPosUser.long-0.0001282;
                 let maxTop = self.state.lastPosUser.lat+0.0000901;
@@ -60,7 +79,7 @@ class HomePage extends React.Component {
                             body: JSON.stringify({
                                 "latitude": posUser.lat,
                                 "longitude": posUser.long,
-                                "userId": 1 //TODO get user_id
+                                "userId": token
                             })
                         }).then((response) => {
                             response.json().then((response) => {
@@ -69,7 +88,7 @@ class HomePage extends React.Component {
                         }).catch(err => {
                             console.error(err)
                         })
-                        console.log("ACTUALISATION !")
+                        console.log("ACTUALISATION !"+token)
                     }
                 } else {
                     console.log("reset cycle & la pos")
@@ -80,7 +99,7 @@ class HomePage extends React.Component {
                 }
                 console.log("On passe")
             }
-        },30000)
+        },30000);
     }
 
     setStore = (store) => {
@@ -110,9 +129,9 @@ class HomePage extends React.Component {
                     {(() => {
                         switch(this.state.page) {
                         case "HISTORY":
-                            return <History togglePage={this.togglePage} />
+                            return <History user={this.state.user} togglePage={this.togglePage} />
                         case "SETTINGS":
-                            return <Settings togglePage={this.togglePage} />
+                            return <Settings user={this.state.user} togglePage={this.togglePage} />
                         default:
                             return <LeftMenu connected={this.state.connected} togglePage={this.togglePage} page={this.state.page} toggleDarkMode={this.toggleDarkMode} darkMode={this.state.darkMode} />
                         }
