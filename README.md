@@ -1,12 +1,12 @@
 # Affluence-Front
 
-Make a application to prevent waiting time in stores.
+Make an application to prevent waiting time in stores.
 
 It is a web application created with React that retrieves data from the Affluence API to display shop data.
 
 ![affluence-front](https://user-images.githubusercontent.com/45497492/86391989-fc2cc780-bc9a-11ea-800b-5d9edd2f0f57.png)
 
-## Basic command
+## Get started
 
 Download project : `git clone https://github.com/sckraa/Affluence-Front.git`
 
