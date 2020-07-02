@@ -10,6 +10,10 @@ class Settings extends React.Component {
         this.props.togglePage("HOME")
     }
 
+    componentDidMount = () => {
+        console.log(this.props)
+    }
+
     render() {
 
         return(

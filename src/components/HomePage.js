@@ -141,6 +141,7 @@ class HomePage extends React.Component {
                         {this.state.store ? <Store
                             store={this.state.store}
                             setStore={this.setStore}
+                            user={this.state.user}
                         /> : null}
                     </div>
                 </Fragment>

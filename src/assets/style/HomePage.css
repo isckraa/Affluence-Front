@@ -4,7 +4,8 @@
     right: 1.5em;
     width: 22em;
     overflow-y: auto;
-    overflow-x: hidden;
+    overflow-x: auto;
+    max-height: 100vh;
 }
 
 .rightMenu>* {
