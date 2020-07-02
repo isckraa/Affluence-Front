@@ -33,9 +33,7 @@ class SignUp extends React.Component {
             body: JSON.stringify(this.state)
         };
         fetch('https://www.projet-web-training.ovh/affluence/Affluence/public/user/register', requestOptions)
-            .then(function(response) {
-                console.log(response);
-                
+            .then(function(response) {                
                 if(currentComponent.state.email === "") {
                     currentComponent.setState({response: {status: 1}});
                 } else if(currentComponent.state.pseudo === "") {
@@ -44,13 +42,10 @@ class SignUp extends React.Component {
                     currentComponent.setState({response: {status: 3}})
                 } else if(response.status === 409) {
                     currentComponent.setState({response: {status: response.status, message: "L'email ou le pseudo est déjà utilisé."}});
-                    console.log(currentComponent);
                 } else if(response.status === 415) {
                     currentComponent.setState({response: {status: response.status, message: "Le mot de passe doit contenir au moins une minuscule, une majuscule, un caractère spécial [$ @ % * + - _ !] et 6 caractères. "}});
-                    console.log(currentComponent);
                 } else if( response.status === 201) {
                     currentComponent.setState({response: {status: 201}});
-                    console.log(currentComponent);
                 }
             })
             .catch(err => { console.log(err) });

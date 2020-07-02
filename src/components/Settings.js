@@ -44,7 +44,6 @@ class Settings extends React.Component {
                     <Icon className="closeMenuBtn" name="chevron-left" onClick={this.backToHome} />
                     <h2 className="title">Paramètres</h2>
                 </div>
-                {/* <Icon className="backToHome" name="arrow-left" onClick={this.backToHome} /> */}
                 <div className="infosUser">
                     <FieldEditable title="Pseudo" value={this.props.user.pseudo} />
                     <FieldEditable title="E-mail" value={this.props.user.email} />

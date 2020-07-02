@@ -48,7 +48,6 @@ class Login extends React.Component {
                     }
                 })
                 localStorage.setItem('user',JSON.stringify(user));
-                console.log(response.token);
                 if (response.token) {
                     this.props.history.push('/affluence/');
                 }

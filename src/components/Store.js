@@ -126,17 +126,12 @@ class Store extends React.Component {
                                 <p>{this.state.adresse}</p>
                                 <p>{this.state.codePostal} {this.state.ville}</p>
                             </div>
-                            {/* <img className="storeImg" src="" /> */}
                         </div>
                         <div className="timeWait">
                             <p><span>{this.state.waitTime}</span>min</p>
                             <p>Temps d'attente estimé</p>
                         </div>
                         <div className="rowPeopleCapacity">
-                            {/* <div className="people">
-                                <p>{this.state.people}</p>
-                                <p>Personnes</p>
-                            </div> */}
                             <div className="capacity">
                                 <p>{this.state.maxClient}</p>
                                 <p>Capacités max.</p>
@@ -171,17 +166,12 @@ class Store extends React.Component {
                             <p>{this.props.store.adresse}</p>
                             <p>{this.props.store.codePostal} {this.props.store.ville}</p>
                         </div>
-                        {/* <img className="storeImg" src="" /> */}
                     </div>
                     <div className="editContainer">
                         <div className="editCapacity">
                             <p>Capacités maximal</p>
                             <input type="number" className="numberStoreEdit" value={this.state.maxClient} onChange={this.handleChangeCapacity} />
                         </div>
-                        {/* <div className="editPeople">
-                            <p>Personnes dans la file d'attente</p>
-                            <input type="number" className="peopleStoreEdit" value={this.state.people} onChange={this.handleChangePeople} />
-                        </div> */}
                         <div className="editMask">
                             <p>Masque obligatoire</p>
                             <Switch
