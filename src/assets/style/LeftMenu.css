@@ -24,7 +24,9 @@
     text-align: center;
 }
 
-.menuIcon:hover, .rowMenu:hover, .btnConnect:hover {
+.menuIcon:hover,
+.rowMenu:hover,
+.btnConnect:hover {
     cursor: pointer;
 }
 
@@ -34,7 +36,6 @@
     align-items: baseline;
     position: absolute;
     top: 50%;
-    -ms-transform: translateY(-50%);
     transform: translateY(-50%);
 }
 
@@ -57,7 +58,22 @@
     font-size: 38px;
     color: #E84820;
     margin: 0.5em;
+    -webkit-filter: drop-shadow(1px 3px 1px black);
     filter: drop-shadow(1px 3px 1px black);
+    margin-right: 50px;
+}
+
+.title-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.closeMenuBtn {
+    font-size: 30px;
+    position: absolute;
+    right: 20px;
+    color: white;
 }
 
 .userInfo {
@@ -79,6 +95,8 @@
 
 .btnConnect {
     margin-top: 0.5em;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
     width: fit-content;
     padding: 0.5em 2em;
     background-color: #E84820;
@@ -103,7 +121,11 @@ a {
     font-family: 'Montserrat';
 }
 
-@media only screen and (max-width: 600px) {
+.closeMenuBtnMobile {
+    display: none;
+}
+
+@media only screen and (max-width: 680px) {
     .leftMenu {
         right: 0;
         bottom: unset;
@@ -133,8 +155,30 @@ a {
         justify-content: space-around;
     }
 
-    .rowMenu>h5, .title {
+    .rowMenu>h5,
+    .title {
         display: none;
+    }
+
+    .closeMenuBtn {
+        display: none;
+    }
+
+    .setting-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        position: relative;
+    }
+
+    .closeMenuBtnMobile {
+        display: flex;
+        color: white;
+        font-size: 50px;
+        position: absolute;
+        right: 30px;
+        bottom: 0px;
     }
 
     .menuIcon {

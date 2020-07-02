@@ -60,7 +60,10 @@ class LeftMenu extends React.Component {
         return (
             <div className={this.state.displayMenu ? "leftMenu largeMenu" : "leftMenu"}>
                 {!this.state.displayMenu ? <Icon className="menuIcon" name="bars" onClick={this.displayMenu} />:
-                <h2 className="title">Affluence</h2>}
+                <div className="title-wrapper">
+                    <Icon className="closeMenuBtn" name="chevron-left" onClick={this.goToAccueil} />
+                    <h2 className="title">Affluence</h2>
+                </div>}
                 {this.state.displayMenu ? <div className="userInfo">
                     <img className="avatar" src={userLogo} alt="votre avatar" />
                     <h2>Bienvenue</h2>
@@ -91,14 +94,19 @@ class LeftMenu extends React.Component {
                         {this.state.displayMenu ? <h5>Paramètres</h5> : null}
                     </div>
                 </div>
-                {this.state.displayMenu ? <div className="darkMode">
-                    <p>mode sombre</p>
-                    <Switch
-                        checked={this.props.darkMode}
-                        onChange={this.props.toggleDarkMode}
-                        color="default"
-                    />
-                </div> : null}
+                {this.state.displayMenu ?
+                    <div className="setting-wrapper">
+                        <div className="darkMode">
+                            <p>mode sombre</p>
+                            <Switch
+                                checked={this.props.darkMode}
+                                onChange={this.props.toggleDarkMode}
+                                color="default"
+                            />
+                        </div> 
+                        <Icon className="closeMenuBtnMobile" name="chevron-up" onClick={this.goToAccueil} />
+                    </div>
+                : null}
             </div>
         )
     }
