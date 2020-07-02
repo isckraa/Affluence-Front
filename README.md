@@ -1,7 +1,32 @@
 # Affluence-Front
-Make a application to prevent waiting time in stores.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Make an application to prevent waiting time in stores.
+
+It is a web application created with React that retrieves data from the Affluence API to display shop data.
+
+![affluence-front](https://user-images.githubusercontent.com/45497492/86391989-fc2cc780-bc9a-11ea-800b-5d9edd2f0f57.png)
+
+## Get started
+
+Download project : `git clone https://github.com/sckraa/Affluence-Front.git`
+
+Install project : `yarn install`
+
+Run project : `yarn start`
+
+You can now use Affluence application :)
+
+## Team
+
+- [Balzac Baudemont](https://github.com/balzacbdmt)
+- [Alexis Granger](https://github.com/agranger13)
+- [Ion Luca](https://github.com/sckraa)
+- [Nathan Wolf](https://github.com/Wolf-Nathan)
+
+## Affluence Application Project
+
+In this page you can find the API used for this application.
+https://github.com/sckraa/Affluence
 
 ## Available Scripts
 
@@ -69,4 +94,3 @@ This section has moved here: https://facebook.github.io/create-react-app/docs/de
 ### `yarn build` fails to minify
 
 This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
-
