@@ -216,30 +216,92 @@ class Maps extends React.Component {
         })
         .then(function (response) {
             response.data.forEach(element => {
-                map.addSource(element.id.toString(), {
-                    'type': 'geojson',
-                    'data': {
-                        'type': 'FeatureCollection',
-                        'features': [
-                            {
-                                'type': 'Feature',
-                                'geometry': {
-                                    'type': 'Point',
-                                    'coordinates': [element.Longitude, element.Latitude]
+                if (element.fileAttente[0]) {
+                    axios.get('https://projet-web-training.ovh/affluence/Affluence/public/file/attente/list/'+element.fileAttente[0])
+                    .then(function (responseFileAttente) {
+                        let duree = new Date(responseFileAttente.data.duree);
+                        duree = duree.getHours()*60 + duree.getMinutes();
+                        if (duree >= 30) {
+                            map.addSource(element.id.toString(), {
+                                'type': 'geojson',
+                                'data': {
+                                    'type': 'FeatureCollection',
+                                    'features': [
+                                        {
+                                            'type': 'Feature',
+                                            'geometry': {
+                                                'type': 'Point',
+                                                'coordinates': [element.Longitude, element.Latitude]
+                                            }
+                                        }
+                                    ]
                                 }
-                            }
-                        ]
-                    }
-                });
-                map.addLayer({
-                    'id': element.id.toString(),
-                    'type': 'symbol',
-                    'source': element.id.toString(),
-                    'layout': {
-                        'icon-image': 'marker_green',
-                        'icon-size': 0.10
-                    }
-                });
+                            });
+                            map.addLayer({
+                                'id': element.id.toString(),
+                                'type': 'symbol',
+                                'source': element.id.toString(),
+                                'layout': {
+                                    'icon-image': 'marker_red',
+                                    'icon-size': 0.10
+                                }
+                            });
+                        } else if (duree >= 10) {
+                            map.addSource(element.id.toString(), {
+                                'type': 'geojson',
+                                'data': {
+                                    'type': 'FeatureCollection',
+                                    'features': [
+                                        {
+                                            'type': 'Feature',
+                                            'geometry': {
+                                                'type': 'Point',
+                                                'coordinates': [element.Longitude, element.Latitude]
+                                            }
+                                        }
+                                    ]
+                                }
+                            });
+                            map.addLayer({
+                                'id': element.id.toString(),
+                                'type': 'symbol',
+                                'source': element.id.toString(),
+                                'layout': {
+                                    'icon-image': 'marker_orange',
+                                    'icon-size': 0.10
+                                }
+                            });
+                        } else {
+                            map.addSource(element.id.toString(), {
+                                'type': 'geojson',
+                                'data': {
+                                    'type': 'FeatureCollection',
+                                    'features': [
+                                        {
+                                            'type': 'Feature',
+                                            'geometry': {
+                                                'type': 'Point',
+                                                'coordinates': [element.Longitude, element.Latitude]
+                                            }
+                                        }
+                                    ]
+                                }
+                            });
+                            map.addLayer({
+                                'id': element.id.toString(),
+                                'type': 'symbol',
+                                'source': element.id.toString(),
+                                'layout': {
+                                    'icon-image': 'marker_green',
+                                    'icon-size': 0.10
+                                }
+                            });
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+                }
                 map.on('click', element.id.toString(), function(e) {
                     self.props.setStore(element);
                 });

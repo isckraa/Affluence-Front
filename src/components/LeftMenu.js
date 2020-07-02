@@ -43,12 +43,9 @@ class LeftMenu extends React.Component {
     }
 
     goToSettings = () => {
-        console.log(this.props);
         if(localStorage.getItem('user') === null && this.state.username === "") {
-            console.log("go to login");
-            this.props.togglePage("LOGIN");
+            this.props.history.push('/affluence/login');
         } else {
-            console.log("got to settings");
             this.props.togglePage("SETTINGS");
         }
     }

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { withRouter, Redirect } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import '../assets/style/HomePage.css';
@@ -106,9 +106,6 @@ class HomePage extends React.Component {
     }
 
     togglePage = (nextPage) => {
-        if (nextPage === "LOGIN") {
-            return  <Redirect to='/affluence/login' />
-        }
         this.setState({page: nextPage});
     }
 

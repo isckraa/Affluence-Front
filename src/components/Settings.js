@@ -15,15 +15,6 @@ class Settings extends React.Component {
         }
     }
 
-    // componentDidMount() {
-    //     let user = {
-    //         username : "commercant",
-    //         token    : "onsenbaslescouilles",
-    //     }
-    //     localStorage.setItem('user',JSON.stringify(user));
-    //     console.log(this.props);
-    // }
-
     backToHome = () => {
         this.props.togglePage("HOME")
     }
@@ -63,9 +54,7 @@ class Settings extends React.Component {
                         <h5>{this.checkUserRole()}</h5>
                     </div>
                 </div>
-                <Icon className="closeMenuBtnMobile" name="chevron-up" onClick={this.backToHome} />
-                {/* TODO if store: add field: name, lat, long, adresse, cp, ville */}
-                
+                <Icon className="closeMenuBtnMobile" name="chevron-up" onClick={this.backToHome} />                
             </div>
         );
     }
