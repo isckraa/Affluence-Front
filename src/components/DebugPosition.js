@@ -44,8 +44,8 @@ class DebugPosition extends React.Component {
             lat = this.state.latNew;
             long = this.state.longNew;
         }
-        lat = this.roundOff(lat,6);
-        long = this.roundOff(long,6);
+        lat = this.roundOff(lat,8);
+        long = this.roundOff(long,8);
         this.props.updateUserPosition(lat, long);
     }
 
