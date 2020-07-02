@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import {withRouter} from 'react-router-dom';
+import { withRouter, Redirect } from 'react-router-dom';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import '../assets/style/HomePage.css';
@@ -50,9 +50,7 @@ class HomePage extends React.Component {
                     self.setState({
                         user: response.data[0]
                     })
-                    token = response.data[0].id;
-                    console.log(response.data);
-                    console.log(token);
+                    token = user.token;
                 })
                 .catch(function (error) {
                     console.log(error);
@@ -61,6 +59,7 @@ class HomePage extends React.Component {
         }
         setInterval(function(){
             if (window.location.pathname === "/affluence/" || window.location.pathname === "/affluence") {
+                console.log(token);
                 let posUser = self.map.current.getUserPosition();
                 
                 if (!self.state.lastPosUser) self.setState({lastPosUser: posUser});
@@ -72,14 +71,15 @@ class HomePage extends React.Component {
 
                 if (posUser.long < maxRight && posUser.long > maxLeft && posUser.lat < maxTop && posUser.lat > maxBottom) {
                     self.setState({cycleCounter: self.state.cycleCounter+1});
-                    console.log("cycle++")
                     if (self.state.cycleCounter >= 6) {
+                        let headers = new Headers();
+                        headers.set('Authorization', 'Bearer ' + token);
                         fetch('https://projet-web-training.ovh/affluence/Affluence/public/api/info/pushGeo', {
                             method: 'POST',
+                            headers: headers,
                             body: JSON.stringify({
                                 "latitude": posUser.lat,
                                 "longitude": posUser.long,
-                                "userId": token
                             })
                         }).then((response) => {
                             response.json().then((response) => {
@@ -91,13 +91,11 @@ class HomePage extends React.Component {
                         console.log("ACTUALISATION !"+token)
                     }
                 } else {
-                    console.log("reset cycle & la pos")
                     self.setState({
                         cycleCounter: 0,
                         lastPosUser: posUser,
                     });
                 }
-                console.log("On passe")
             }
         },30000);
     }
@@ -108,6 +106,9 @@ class HomePage extends React.Component {
     }
 
     togglePage = (nextPage) => {
+        if (nextPage === "LOGIN") {
+            return  <Redirect to='/affluence/login' />
+        }
         this.setState({page: nextPage});
     }
 
