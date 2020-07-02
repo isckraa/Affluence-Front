@@ -41,10 +41,20 @@ class Store extends React.Component {
                 nom: response.data.nom,
                 maxClient: response.data.maxClient, 
                 people: 0, //After, get the current value
-                waitTime: 0, //After, get the current value
                 maskRequired:response.data.maskRequired,
                 gel: response.data.gel,
             })
+            if (response.data.fileAttente[0]) {
+                axios.get('https://projet-web-training.ovh/affluence/Affluence/public/file/attente/list/'+response.data.fileAttente[0])
+                .then(function (responseFileAttente) {
+                    let duree = new Date(responseFileAttente.data.duree);
+                    let result = duree.getHours()*60 + duree.getMinutes();
+                    self.setState({waitTime: result});
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            }
         })
         .catch(function (error) {
             console.log(error);
