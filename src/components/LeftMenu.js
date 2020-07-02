@@ -19,7 +19,7 @@ class LeftMenu extends React.Component {
 
     displayMenu = () => {
         this.setState({displayMenu: !this.state.displayMenu});
-        
+
         if(localStorage.getItem('user') !== null) {
             let user = JSON.parse(localStorage.getItem('user'));
             if("token" in user && user.token !== "") {
@@ -46,6 +46,16 @@ class LeftMenu extends React.Component {
         this.props.togglePage("SETTINGS");
     }
 
+    logOut = () => {
+        this.setState({
+            username: "",
+        }, () => {
+            if(localStorage.getItem('user') !== null && this.state.username === "") {
+                localStorage.removeItem('user');
+            }
+        });
+    }
+
     render() {
         return (
             <div className={this.state.displayMenu ? "leftMenu largeMenu" : "leftMenu"}>
@@ -54,7 +64,16 @@ class LeftMenu extends React.Component {
                 {this.state.displayMenu ? <div className="userInfo">
                     <img className="avatar" src={userLogo} alt="votre avatar" />
                     <h2>Bienvenue</h2>
-                    { this.state.username === "" ? <Link to="/affluence/login"><div className="btnConnect"><h5>Se connecter</h5></div></Link> : <h3 className="name">{this.state.username}</h3> }
+                    { this.state.username === "" ?
+                        <div>
+                            <Link to="/affluence/login"><div className="btnConnect"><h5>Se connecter</h5></div></Link>
+                        </div> 
+                        :
+                        <div>
+                            <h3 className="name">{this.state.username}</h3>
+                            <div className="btnConnect" onClick={this.logOut}><h5>Se déconnecter</h5></div>
+                        </div>
+                    }
                     {/* {this.props.connected ? <h3 className="name">Patrick Nollet</h3> :
                     <Link to="/affluence/login"><div className="btnConnect"><h5>Se connecter</h5></div></Link>} */}
                 </div> : null}
