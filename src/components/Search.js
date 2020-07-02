@@ -2,6 +2,7 @@ import React from 'react';
 import '../assets/style/Search.css';
 import Rowsearch from './RowSearch';
 import axios from 'axios';
+import loading from '../images/loading.gif';
 
 var Icon = require('react-fontawesome')
 
@@ -11,7 +12,8 @@ class Search extends React.Component {
         super(props);
         this.state = {
             searchValue: "",
-            result: []
+            result: [],
+            searching: false,
         }
     }
 
@@ -25,6 +27,7 @@ class Search extends React.Component {
             this.setState({result: []})
             return;
         }
+        this.setState({searching: true});
         let self = this;
         axios.get("https://projet-web-training.ovh/affluence/Affluence/public/boutique/list_nom", {
             params: {
@@ -33,7 +36,8 @@ class Search extends React.Component {
           })
           .then(({data}) => (
             self.setState({
-                result: data
+                result: data,
+                searching: false,
             })
           ));
     }
@@ -51,9 +55,13 @@ class Search extends React.Component {
                     <input type="text" className="input" placeholder="Rechercher" value={this.state.searchValue} onChange={this.handleChange} />
                     <Icon className="searchBtn" name="search" />
                 </div>
-                <div>
-                {result}
-                </div>
+                {this.state.searching ? 
+                    <img className="loading" src={loading} alt="Recherche en cours" />
+                    :
+                    <div>
+                        {result}
+                    </div>
+                }
             </div>
         );
     }

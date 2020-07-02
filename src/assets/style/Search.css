@@ -21,6 +21,13 @@
     top: 1.5em;
 }
 
+.loading {
+    display: block;
+    width: 2em;
+    height: 2em;
+    margin: 1em auto;
+}
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #fff;
     opacity: 1; /* Firefox */
