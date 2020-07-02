@@ -14,8 +14,11 @@ class Settings extends React.Component {
 
         return(
             <div className="settings">
-                <Icon className="backToHome" name="arrow-left" onClick={this.backToHome} />
-                <h2 className="title">Paramètres</h2>
+                <div className="title-wrapper">
+                    <Icon className="closeMenuBtn" name="chevron-left" onClick={this.backToHome} />
+                    <h2 className="title">Paramètres</h2>
+                </div>
+                {/* <Icon className="backToHome" name="arrow-left" onClick={this.backToHome} /> */}
                 <div className="infosUser">
                     <FieldEditable title="Pseudo" value="p.nollet75" />
                     <FieldEditable title="E-mail" value="patrick@mail.fr" />
